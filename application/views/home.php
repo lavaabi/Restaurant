@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 </head>
 <body>
+<?php
+if(!empty($this->session->flashdata('success_message'))){
+	//print_r($_SESSION['user_details']);
+	?>
+	<script>
+	alert('<?php echo $this->session->flashdata('success_message'); ?>');
+</script><?php	
+}
+?>
     <!-- navigation -->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -102,17 +111,17 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <form>
+                            <form action="<?php echo BASE_URL; ?>" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="email" placeholder="Email Address">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                                 </div>
-                                <button type="submit" class="btn btn-gulp w-100">Sign up</button>
+                                <button type="submit" name="signup" class="btn btn-gulp w-100">Sign up</button>
                                 <p class="text-center already">Already a member? <span><a href="#" class="text-red t-under">Sign-in</a></span></p>
                             </form>
                         </div>
