@@ -1,0 +1,207 @@
+/* gulp css */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/************************************** custom style starts *********************************************/
+/* custom margin */
+
+/* custom margin ends */
+/* custom padding */
+
+/* End custom padding */
+/* custom width */
+.w-100 {
+	width: 100%;
+}
+/* End custom width */
+/* color */
+.text-red {
+	color: #c00a27;
+}
+/* End color*/
+/* helper class */
+.t-under {
+	text-decoration: underline;
+}
+a {
+	outline: none;
+}
+
+/* gulp btn */
+.btn.btn-gulp {
+    color: #fff;
+    background-color: #c00a27;
+	border-color: #c41733;
+	padding: 10px 20px;
+}
+.btn.btn-gulp:hover,.btn.btn-gulp:focus {
+	color: #c00a27;
+	border-color: #c41733;
+	background: #fff;
+}
+.btn.btn-gulp-bd {
+	color: #c00a27;
+	border-color: #c41733;
+	background: #fff;
+	padding: 10px 20px;
+}
+.btn.btn-gulp-bd:hover,.btn.btn-gulp-bd:focus {
+	color: #fff;
+	border-color: #c41733;
+	background: #c00a27;
+}
+/* end gulp */
+.navbar.navbar-default .gulp-create-acc > a {
+    background: #c00a27;
+	color: #fff;
+	border-radius: 3px;
+	border: 1px solid #c00a27;
+	padding: 12px 25px;
+	-webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+.navbar.navbar-default .gulp-login > a:hover,
+.navbar.navbar-default .gulp-login > a:focus {
+	background: #c00a27;
+	border: 1px solid #c00a27;
+	color: #fff;
+}
+.navbar.navbar-default .gulp-create-acc > a:hover,
+.navbar.navbar-default .gulp-create-acc > a:focus {
+	background: #fff;
+	border: 1px solid #c00a27;
+	color: #c00a27;
+}
+.navbar.navbar-default .gulp-login a {
+    border: 1px solid #c00a27;
+	color: #c00a27;
+	padding: 12px 25px;
+	border-radius: 3px;
+	-webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+.sign-block {
+	padding: 15px 0;
+}
+.gulp-login {
+	margin-right: 15px;
+}
+.banner-section {
+   position: relative;
+}
+.btn.btn-fb {
+	width: 100%;
+	background: #3b5998;
+	color: #fff;
+	padding: 12px;
+	position: relative;
+}
+.btn.btn-fb:hover, .btn.btn-fb:focus {
+	background: #3b5998;
+	color: #fff;
+}
+.facebook {
+    margin: 10px 0 0 0;
+}
+.btn.btn-fb .fa-facebook {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+}
+.or p {
+    color: #999;
+    font-size: 11px;
+    position: relative;
+}
+.or {
+    margin: 30px 0 15px 0;
+}
+.or p::before {
+    content: "";
+    position: absolute;
+    width: 30%;
+    height: 0.7px;
+    background: #ccc;
+    left: 15%;
+    top: 6px;
+}
+.or p::after {
+    content: "";
+    position: absolute;
+    width: 30%;
+    height: 0.7px;
+    background: #ccc;
+    right: 15%;
+    top: 6px;
+}
+.sign-footer a {
+    color: #000;
+    text-decoration: underline;
+}
+.sign-footer {
+    color: #000;
+    font-size: 11px;
+	text-align: center;
+	margin-top: 30px;
+}
+.sign-in {
+	width: 48%;
+	margin-right: 10px;
+}
+.sign-up {
+    width: 48%;
+}
+.sign-blk {
+    margin: 10px 0 0 0;
+}
+.already {
+	margin: 15px 0 0 0;
+	font-size: 13px;
+}
+#gulp-sign-up .modal-body, #gulp-login .modal-body {
+    padding: 25px;
+}
+/* end custom styles */
