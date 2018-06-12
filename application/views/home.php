@@ -86,7 +86,7 @@ if(!empty($this->session->flashdata('success_message'))){
                         </div>
                         <div class="col-xs-12 sign-blk">
                             <button class="btn btn-gulp-bd sign-in">Sign In</button>
-                            <button class="btn btn-gulp-bd sign-up">Sign Up</button>
+                            <button class="btn btn-gulp-bd sign-up" data-toggle="modal" data-target="#gulp-sign-up">Sign Up</button>
                         </div>
                         <div class="col-xs-12">
                             <p class="sign-footer">By logging in, you agree to Gulpp's <span><a href="#">terms of services</a></span>, Cookie policy, <span></a>
@@ -122,7 +122,7 @@ if(!empty($this->session->flashdata('success_message'))){
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                                 </div>
                                 <button type="submit" name="signup" class="btn btn-gulp w-100">Sign up</button>
-                                <p class="text-center already">Already a member? <span><a href="#" class="text-red t-under">Sign-in</a></span></p>
+                                <p class="text-center already">Already a member? <span><a href="#" data-toggle="modal" data-target="#gulp-login" class="text-red t-under">Sign-in</a></span></p>
                             </form>
                         </div>
                         <div class="col-xs-12">
@@ -150,4 +150,16 @@ if(!empty($this->session->flashdata('success_message'))){
     <!-- bootstrap js -->
     <script src="<?php echo BASE_URL; ?>/js/bootstrap.js" type="text/javascript"></script>
 </body>
+
+<script>
+
+$(document).ready(function(){
+	$('.t-under').click(function () {
+		$( "#gulp-sign-up" ).find(".close").trigger( "click" );
+	});
+	$('.sign-up').click(function () {
+		$( "#gulp-login" ).find(".close").trigger( "click" );
+	});
+});	
+</script>	
 </html>

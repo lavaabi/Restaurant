@@ -29,4 +29,20 @@ class Home extends CI_Controller {
 		
 		$this->load->view('home');
 	}
+	public function login()
+	{
+		if(isset($_POST['signin'])){			
+			$result = $this->db->select('*')->from('mt_customers')->where('email', $_POST['email'])->where('password', md5($_POST['password']))->get()->row();
+			if (empty($result)) {
+				
+				$this->session->set_flashdata('success_message', 'Invalid Credentials!!');
+				
+			}else{
+				$_SESSION['user_details'] = $result;
+				$this->session->set_flashdata('success_message', 'Logged in Successfully!!');
+			}
+		}
+		
+		$this->load->view('home');
+	}
 }
