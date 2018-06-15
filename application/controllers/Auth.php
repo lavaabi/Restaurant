@@ -1,10 +1,4 @@
 <?php
-/*********************************************************************************************
- * Author     : Ashok Kumar
- * Module     : FB Authentication  
- * Description: User login Functions.
- * Methods    : fb_login
- ***********************************************************************************************/
 defined( 'BASEPATH' ) OR exit( 'No direct script access allowed' );
 
 class Auth extends CI_Controller

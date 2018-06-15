@@ -87,19 +87,8 @@ class Auth_model extends CI_Model
             $query                      = $select_user->get();
             $result                     = $query->result();
             
-            $message = /*-----------email body starts-----------*/ 'Dear, ' . $fbUserData['first_name'] . '!
-
-            <br><br>Thank you for signing up for access to the Tapright Chatbot, your account has been created.
-             Congratulations on taking the first step toward creating your first Bot!<br> 
-            <br>
-            <br>
-            If you have any questions, please contact Tapright Chatbot at support@appdevelopment.com. For info about overage, refund and other policies, please visit our Policies page:
-            https://developer.appdevelopment.com/policies<br><br>
-
-            Thank you for choosing Tapright Chatbot!<br>
-
-            The ibot Team ';
-            $subject = "Tapright Chatbot Account Registration";
+            $message = /*-----------email body starts-----------*/ 'Dear, ' . $fbUserData['first_name'] . '!';
+            $subject = "";
             _sendmail( $fbUserData['email'], $message, $subject );
             return $result;
             

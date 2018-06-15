@@ -18,7 +18,7 @@
 			$headers_array 	= getallheaders();
       //echo "<pre>"; print_r($headers_array); echo "</pre>";exit;
 		  	$key_name 			=	config_item('rest_key_name');
-		 	if(isset($headers_array[$key_name]) && $headers_array[$key_name] == 'chatbot_BQokikJOvBiI2HlWgH4olfQ2') {
+		 	if(isset($headers_array[$key_name]) && $headers_array[$key_name] == 'guilp_BQokikJOvBiI2HlWgH4olfQ2') {
 				return TRUE;
 			} else {
 				return FALSE;				

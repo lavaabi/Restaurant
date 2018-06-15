@@ -330,7 +330,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'test1234545454#$';
+$config['encryption_key'] = 'restaurant1234545454#';
 
 /*
 |--------------------------------------------------------------------------

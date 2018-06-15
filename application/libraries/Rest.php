@@ -46,7 +46,7 @@ class REST
 
 
     protected $server  = null;
-    protected $api_name  = 'Chatbot-Auth-Key';
+    protected $api_name  = 'Guilp-Auth-Key';
     protected $api_key   = API_KEY;
 
     protected $ssl_verify_peer  = null;

@@ -68,12 +68,12 @@
 		$mail->IsSMTP();
 		$mail->SMTPAuth   = true; 
 		$mail->SMTPSecure = "tls"; 
-		$mail->Host       = "email-smtp.us-east-1.amazonaws.com";
-		$mail->Username   = "AKIAIYULWW25RS3MNJTQ";
-		$mail->Password   = "AvFepljvxEnIV8TD7xfjZO8ZOdSfLnceUcQ4zX5RYNEP";
+		$mail->Host       = "rajesh";
+		$mail->Username   = "";
+		$mail->Password   = "";
 		//
 
-		$mail->SetFrom('no-reply@tapright.com', 'TapRight ChatBot'); //from (verified email address)
+		$mail->SetFrom('', ''); //from (verified email address)
 		$mail->Subject = $subject; //subject
 
 		//message
@@ -95,48 +95,9 @@
 		if(!$mail->Send()) { 
 			echo "Mailer Error: " . $mail->ErrorInfo; 
 			return false;
+		} 	      
 		} 
-
-
-
-	      } 
       }
-  /*  if (!function_exists('_sendmail'))
-	{
-	   function _sendmail($to, $message, $subject ) {
-   $site = base_url();
-    $header = "From: admin@$site\r\n";
-    $header .= "Reply-To: admin@$site\r\n";
-    $header .= "MIME-Version: 1.0\r\n";
-    $header .= "Content-type:text/html; charset=iso-8859-1\r\n";
-    $header .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $CI 		= & get_instance();
-    $CI->load->library('email');
-     $CI->email->initialize(array(
-    'protocol' => 'smtp',
-    'smtp_host' => 'email-smtp.us-east-1.amazonaws.com',
-    'smtp_user' => 'AKIAIYULWW25RS3MNJTQ',
-    'smtp_pass' => 'AvFepljvxEnIV8TD7xfjZO8ZOdSfLnceUcQ4zX5RYNEP'
-   
-    ));
-     
-   // $CI->load->library('email', $config);
-    $CI->email->from('info@ibot.com', 'Chatbot');
-    $CI->email->to($to);
-    $CI->email->subject($subject);
-    $CI->email->message($message);
-
-    //$this->email->send();
-    if ( ! $CI->email->send()) {
-        return false;
-    }
-    echo "sent";
-    return true;
-}
-}
-*/
-
-
     /**
 	 * Make a POST request to the end point
 	 * 
@@ -177,7 +138,7 @@
 	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 	   // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 	///	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Chatbot-Auth-Key: ' . API_KEY	));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Guilp-Auth-Key: ' . API_KEY	));
 
 	    $result = curl_exec($curl);
 
