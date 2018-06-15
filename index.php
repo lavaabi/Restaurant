@@ -54,10 +54,25 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "";
-	define('BASE_URL', (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $host);
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+ 
+	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
     
-
+    if (preg_match("/^localhost$|^localhost:8080$|^localhost:80$|^restaurant\.local$/",
+        $host) == 1)
+    {
+		define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'local');
+        define('BASE_URL', (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $host);
+    }
+    elseif (preg_match("/^sanghish\.com$|^www\.sanghish\.com$/", $host) == 1)
+    {
+        define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
+        define('BASE_URL', (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $host);
+    } 
+    else
+    {
+        define('ENVIRONMENT', '');
+        define('BASE_URL', '');
+    }
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -68,12 +83,11 @@
  */
 switch (ENVIRONMENT)
 {
-	case 'development':
+	case 'local':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
 	break;
-
-	case 'testing':
+	
 	case 'production':
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))
