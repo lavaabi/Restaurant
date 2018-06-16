@@ -8,86 +8,271 @@ if(!empty($this->session->flashdata('success_message'))){
 </script><?php	
 }
 ?>
-<!-- login modal box-->
-<div class="modal fade" id="gulp-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title text-center" id="myModalLabel"> Sign up or Log in to Gulpp</h4>
-            </div>
-            <div class="modal-body">
+<?php $this->load->view('banner'); ?>
+<!-- how to order-->
+    <div class="how-to-order text-center">
+        <div class="container">
+            <h2>How To Order?</h2>
+            <p>Follow the steps</p>
+            <div class="steps">
                 <div class="row">
-                    <div class="fbbtn col-xs-12 facebook">
-                        <!--<a href="javascript:void(0);"  id="fbLink" class="waves-effect waves-light"><i class="icon_facebook iconFB"></i>Sign In With Facebook<i class="iconLoad circle-loader"><span class="checkmark draw"></span></i></a>-->
-                        <button class="btn btn-fb" id="fbLink"><i class="fa fa-facebook"></i> Sign in with Facebook</button>
+                    <div class="col-sm-3 o-step-blk">
+                        <img src="<?php echo base_url();?>assets/img/how/location.png" alt="order-step-1">
+                        <h4>Choose your <br/> location</h4>
                     </div>
-                    <div class="or col-xs-12 text-center">
-                         <p>OR</p>
+                    <div class="col-sm-3 o-step-blk">
+                        <img src="<?php echo base_url();?>assets/img/how/restuarant.png" alt="order-step-2">
+                        <h4>Choose
+                            <br/> restaurant</h4>
                     </div>
-                    <div class="col-xs-12 text-center">
-                        <p>Or use your email address</p>
+                    <div class="col-sm-3 o-step-blk">
+                        <img src="<?php echo base_url();?>assets/img/how/order.png" alt="order-step-3">
+                        <h4>Make your
+                            <br/> Order</h4>
                     </div>
-                    <div class="col-xs-12 sign-blk">
-                        <button class="btn btn-gulp-bd sign-in">Sign In</button>
-                        <button class="btn btn-gulp-bd sign-up" data-toggle="modal" data-target="#gulp-sign-up">Sign Up</button>
-                    </div>
-                    <div class="col-xs-12">
-                        <p class="sign-footer">By logging in, you agree to Gulpp's <span><a href="#">terms of services</a></span>, Cookie policy, <span></a>
-                        <a href="#">privacy policy</a></span> and <span><a href="#">Content policies.</a></span></p>
+                    <div class="col-sm-3 o-step-blk">
+                        <img src="<?php echo base_url();?>assets/img/how/food.png" alt="order-step-4">
+                        <h4>Food is on
+                            <br/> the way</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End login modal box-->
-<!-- signup modal box-->
-<div class="modal fade" id="gulp-sign-up" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title text-center" id="myModalLabel"> Sign up or Log in to Gulpp</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <form action="<?php echo BASE_URL; ?>" method="POST">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+    <!-- End how to order -->
+    <!-- testimonial -->
+    <div class="gulp-testimonial">
+        <div class="container">
+            <h2 class="text-center">Our Client Says</h2>
+                <div id="carousel">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="quote">
+                                <i class="fa fa-quote-left fa-4x"></i>
                             </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
+                            <div class="carousel slide" id="fade-quote-carousel" data-ride="carousel" data-interval="4000">
+                                <!-- Carousel indicators
+                                <ol class="carousel-indicators">
+                                    <li data-target="#fade-quote-carousel" data-slide-to="0"></li>
+                                    <li data-target="#fade-quote-carousel" data-slide-to="1"></li>
+                                    <li data-target="#fade-quote-carousel" data-slide-to="2" class="active"></li>
+                                    <li data-target="#fade-quote-carousel" data-slide-to="3"></li>
+                                    <li data-target="#fade-quote-carousel" data-slide-to="4"></li>
+                                    <li data-target="#fade-quote-carousel" data-slide-to="5"></li>
+                                </ol> -->
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    <div class="item">
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium
+                                                totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi.
+                                                Impedit temporibus nisi accusamus.</p>
+                                        </blockquote>
+                                        <div class="profile-circle">
+                                            <img src="<?php echo base_url();?>assets/img/user.png" alt="testimonial-image">
+                                        </div>
+                                        <h5 class="profile-name">John Peter</h5>
+                                        <p class="profile-desc">Visitor</p>
+                                    </div>
+                                    <div class="item">
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio
+                                                doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        </blockquote>
+                                        <div class="profile-circle">
+                                            <img src="<?php echo base_url();?>assets/img/user.png" alt="testimonial-image">
+                                        </div>
+                                        <h5 class="profile-name">John Peter</h5>
+                                        <p class="profile-desc">Visitor</p>
+                                    </div>
+                                    <div class="active item">
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio
+                                                doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        </blockquote>
+                                        <div class="profile-circle">
+                                            <img src="<?php echo base_url();?>assets/img/user.png" alt="testimonial-image">
+                                        </div>
+                                        <h5 class="profile-name">John Peter</h5>
+                                        <p class="profile-desc">Visitor</p>
+                                    </div>
+                                    <div class="item">
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio
+                                                doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        </blockquote>
+                                        <div class="profile-circle">
+                                            <img src="<?php echo base_url();?>assets/img/user.png" alt="testimonial-image">
+                                        </div>
+                                        <h5 class="profile-name">John Peter</h5>
+                                        <p class="profile-desc">Visitor</p>
+                                    </div>
+                                    <div class="item">
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio
+                                                doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        </blockquote>
+                                        <div class="profile-circle">
+                                            <img src="<?php echo base_url();?>assets/img/user.png" alt="testimonial-image">
+                                        </div>
+                                        <h5 class="profile-name">John Peter</h5>
+                                        <p class="profile-desc">Visitor</p>
+                                    </div>
+                                    <div class="item">
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio
+                                                doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        </blockquote>
+                                        <div class="profile-circle">
+                                            <img src="<?php echo base_url();?>assets/img/user.png" alt="testimonial-image">
+                                        </div>
+                                        <h5 class="profile-name">John Peter</h5>
+                                        <p class="profile-desc">Visitor</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-                            </div>
-                            <button type="submit" name="signup" class="btn btn-gulp w-100">Sign up</button>
-                            <p class="text-center already">Already a member? <span><a href="#" data-toggle="modal" data-target="#gulp-login" class="text-red t-under">Sign-in</a></span></p>
-                        </form>
+                        </div>
                     </div>
-                    <div class="col-xs-12">
-                        <p class="sign-footer">By Signing up, you agree to Gulpp's
-                            <span>
-                                <a href="#">terms of services</a>
-                            </span>, Cookie policy,
-                            <span>
-                                </a>
-                                <a href="#">privacy policy</a>
-                            </span> and
-                            <span>
-                                <a href="#">Content policies.</a>
-                            </span>
-                        </p>
+                </div>
+        </div>
+    </div>
+    <!-- End Testimonial-->
+    <!-- featured restaurant-->
+    <div class="feature-rest">
+        <div class="container-fluid">
+            <h2 class="text-center">Featured Restaurant</h2>
+            <p class="text-center">Get Latest News from our Blog</p>
+            <div class="row">
+                <div class='col-md-12'>
+                    <div class="carousel slide media-carousel" id="media">
+                        <div class="carousel-inner">
+                            <div class="item  active">
+                                <div class="row">
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-1.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-2.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-3.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-4.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-5.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-6.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-1.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-2.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bs-container">
+                                        <div class="bs-img">
+                                            <img alt="blog-slider-img" src="<?php echo base_url();?>assets/img/listing-slider/slider-3.png">
+                                        </div>
+                                        <div class="bs-desc-blk">
+                                            <h4>Blog Title</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                            has survived not only five centuries,</p>
+                                            <a href="#" class="bs-rd-more">Read more..</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a data-slide="prev" href="#media" class="left carousel-control">&nbsp;</a>
+                        <a data-slide="next" href="#media" class="right carousel-control">&nbsp;</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- End featured restaurant-->
 <?php $this->load->view('footer'); ?>
