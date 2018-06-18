@@ -1,0 +1,16 @@
+.error_info{display: block;color: red; text-align: center;}
+.success_info{display: block;color: green; text-align: center;}
+.overlay {
+		background-image:url('../img/ajax-loader.gif');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color: #ccc;
+    display: none;        
+    position: absolute;   
+    top: 0;                 
+    right: 0;                
+    bottom: 0;
+    left: 0;
+    opacity: 0.9;
+    z-index: 99999999;
+}

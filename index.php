@@ -55,9 +55,9 @@
  */
 	$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "";
  
-	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'local');
     
-    if (preg_match("/^localhost$|^localhost:8080$|^localhost:80$|^restaurant\.local$/",
+    /*if (preg_match("/^localhost$|^localhost:8080$|^localhost:80$|^restaurant\.local$/",
         $host) == 1)
     {
 		define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'local');
@@ -72,7 +72,7 @@
     {
         define('ENVIRONMENT', '');
         define('BASE_URL', '');
-    }
+    }*/
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -84,7 +84,7 @@
 switch (ENVIRONMENT)
 {
 	case 'local':
-		error_reporting(-1);
+		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
 	break;
 	

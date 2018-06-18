@@ -68,12 +68,12 @@
 		$mail->IsSMTP();
 		$mail->SMTPAuth   = true; 
 		$mail->SMTPSecure = "tls"; 
-		$mail->Host       = "rajesh";
-		$mail->Username   = "";
-		$mail->Password   = "";
+		$mail->Host       = "ssl://smtp.googlemail.com";
+		$mail->Username   = "rajeshflr2018@gmail.com";
+		$mail->Password   = "paul@123";
 		//
 
-		$mail->SetFrom('', ''); //from (verified email address)
+		$mail->SetFrom('gulp@info.com', 'Gulp Restaurant'); //from (verified email address)
 		$mail->Subject = $subject; //subject
 
 		//message

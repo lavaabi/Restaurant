@@ -281,6 +281,11 @@ class Auth_model extends CI_Model
         }
         
     }
+
+    public function add_customers($data){
+        $this->db->insert('mt_customers',$data);
+        return true;
+    }
     
     
 }

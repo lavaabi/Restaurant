@@ -13,12 +13,6 @@ class Home_Model extends CI_Model
         $this->db->insert('mt_customers',$data);
         return true;
     }
-	
-	
-	
-	
-	
-	
     public function check_login($email, $password)
     {
         $password_encrypt = md5($password);

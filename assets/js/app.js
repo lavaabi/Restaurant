@@ -120,84 +120,44 @@ $(document).on('click', '#updatefbdetails', function(e) {
 });
 
 function validate(email_txt, password_txt, name_txt, type) {
+  $(".error_info").empty();
+  if (type == "signup") {
 
-    if (type == "signin") {
-
-        if (email_txt == "") {
-         $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter your email address</span></div>");
-          $('.iconLoad').fadeOut();
-          return false
-        }else if (password_txt == "" ) {
-          $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter your password</span></div>");
-         $('.iconLoad').fadeOut();
-          return false
-        }
+    if (name_txt == '') {
+      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your Name.');
+      return false
+    }else if(name_txt.length < 3) {
+      $(".error_info").html("<i class='fa fa-warning'></i> Name should be minimum of 3 characters.");
+      return false  
+    }else if(name_txt.length > 40)
+    {
+      $(".error_info").html("<i class='fa fa-warning'></i> Name should not exceed 40 characters.");
+      return false
     } else {
-      //alert(password_txt+"=="+email_txt+"==="+name_txt)
-      /*  if (password_txt == "" && email_txt == "" && name_txt == "") {
-            $("#error").text('Name, Email and password is required');
-            $("#card-alert").show();
-            return false
-        }*/
-        if (name_txt == '') {
-          $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter your name</span></div>");
-          $('.iconLoad').fadeOut();
-          return false
-          
-        } else {
-
-            if (name_txt.length < 3) {
-               // $("#name").val('');
-               $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Name should be minimum of 3 characters</span></div>");
-                $('.iconLoad').fadeOut();
-                return false
-                
-            } else {
-                if (name_txt.match("^[a-zA-Z']{3,16}")) {
-                    //alert( "Valid name" );
-                } else {
-                   // $("#name").val('');
-                $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter your valid Name</span></div>");
-               $('.iconLoad').fadeOut();
-                return false
-                
-                }
-            }
-
-        }
+      if(name_txt.match("^[a-zA-Z']{3,16}")) {
+      } else {
+      $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid Name.");
+      return false
+      }
     }
-    if (email_txt == '') {
-        $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter your email address</span></div>");
-        $('.iconLoad').fadeOut();
-        return false
-    } else {
+  }
+  if (email_txt == "") {
+     $(".error_info").html('<i class="fa fa-warning"></i> Please enter your email address.');
+     return false
+  }else if (password_txt == "" ) {
+      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your password.');
+      return false
+  }
 
-        if (!isValidEmailAddress(email_txt)) {
-        $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter your valid email address</span></div>");
-        $('.iconLoad').fadeOut();
-        return false
-       }
-
-    }
-    if (password_txt == '') {
-
-        $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Please enter a password</span></div>");
-        $('.iconLoad').fadeOut();
-        return false
-        
-    } else {
-
-        if (type == "signup") {
-
-          if(isvalidpassword(password_txt)===false) {
-            $("#error").html("<div class='center unsuccess'><span class='icon_excalm_outline err_icon'></span><span>Password must be minimum 6 characters and must contains at least one uppercase, one lowercase, one number and one special character.</span></div>");
-            $('.iconLoad').fadeOut();
-             return false  
-          }
-        }
-
-    }
-    return true;
+  if (!isValidEmailAddress(email_txt)) {
+    $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid email address.");
+    return false
+  }
+  if(isvalidpassword(password_txt)===false) {
+    $(".error_info").html("<i class='fa fa-warning'></i> Password must be minimum 6 characters and must contains at least one uppercase, one lowercase, one number and one special character.");
+    return false  
+  }
+return true;
 
 }
 
@@ -216,3 +176,72 @@ function facebook_page_connect(url) {
     window.open(url, '_blank', 'toolbar=no,scrollbars=yes,resizable=no,top=100,left=350,width=600,height=600');
 
 }
+
+function login_submit()
+{
+  var email_txt     = $('#login_email').val();
+  var password_txt  = $('#login_password').val();
+  var sign_in = validate(email_txt,password_txt,name_txt='','signin');
+  if(sign_in)
+  {
+    $('.overlay').show();
+    $.ajax({
+        type: "POST",
+        url: baseurl+"auth/login",
+        data: {
+            "email"     : email_txt,
+            "password"  : password_txt,
+            'login'    :true
+        },
+        dataType:'JSON',
+        success: function(data) {
+          console.log(data);
+          $('.overlay').hide();
+          $('.clear_info').empty();
+          if(data.login_confirm){
+            window.location.href = baseurl+"restaurants";
+          }else{
+            $('.error_info_signin').html(data.error_msg);
+          }
+        }
+    });
+  }
+  return false;
+}
+function signup_submit()
+{
+  var email_txt     = $('#signup_email').val();
+  var password_txt  = $('#signup_password').val();
+  var name_txt      = $('#signup_name').val();
+  var sign_in = validate(email_txt,password_txt,name_txt,'signup');
+  if(sign_in)
+  {
+    $('.overlay').show();
+    $.ajax({
+        type: "POST",
+        url: baseurl+"auth/register",
+        data: {
+            "email"     : email_txt,
+            "password"  : password_txt,
+            "name"      : name_txt,
+            'signup'    :true
+        },
+        dataType:'JSON',
+        success: function(data) {
+          console.log(data);
+          $('.overlay').hide();
+          $('.clear_info').empty();
+          if(data.register_confirm){
+            $('.success_info_signup').html(data.success_msg);
+            $('#signup_email').val('');
+            $('#signup_password').val('');
+            $('#signup_name').val('');
+          }else{
+            $('.error_info_signup').html(data.error_msg);
+          }
+        }
+    });
+  }
+  return false;
+}
+

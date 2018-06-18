@@ -18,6 +18,12 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/sweetalert.css"/>
 
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+<!-- bootstrap js -->
+<script type="text/javascript">var fb_app_id = "<?php echo $this->config->item('facebook_app_id'); ?>";</script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/bootstrap.js?<?php echo time();?>" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/app.js?<?php echo time();?>"></script>
+<script src="js/bootstrap.js" type="text/javascript"></script>
+
 </head>
 <body>
 <?php $this->load->view('menu'); ?>

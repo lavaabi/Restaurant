@@ -63,4 +63,105 @@ class Auth extends CI_Controller
     }
         
     }
+
+    /**
+    ** New customer register 
+    **  
+    ** Paramaters [first_name,email,password]
+    **/
+    public function register()
+    {
+        if(isset($_POST['signup'])){
+            $insert_data = array();
+            $insert_data['first_name']      = isset($_POST['name']) ? $_POST['name'] : Null;
+            $insert_data['email']           = isset($_POST['email']) ? $_POST['email']: Null;
+            $insert_data['password']        = isset($_POST['password']) ? md5($_POST['password']) : Null;
+            $result = $this->db->select('*')->from('mt_customers')->where('email', $_POST['email'])->get()->row();
+            if (empty($result)) {
+                $this->Auth_model->add_customers($insert_data);
+                $message_mail   = 'Dear '.$insert_data['first_name'].',';
+                $email_sent     = _sendmail($insert_data['email'],$message_mail,'Gulp Registerd New User');
+                if($email_sent)
+                {
+                    $data['register_confirm']   = true;
+                    $data['success_msg']        = 'Successfully register with send mail your access link!';
+                }else
+                {
+                    $data['error_msg']          = 'Email sent has Some Internal failure!';
+                }
+                
+            }else{
+                $data['error_msg']          = 'Already exist your email address.';
+            }
+        }else
+        {
+                $data['error_msg']              = 'Some Internal error!';
+        }
+        echo json_encode($data); die;
+    }
+
+    /**
+    ** New customer Login 
+    **  
+    ** Paramaters [email,password]
+    **/
+    public function login()
+    {
+        if(isset($_POST['login'])){
+            $insert_data = array();
+            $insert_data['email']           = isset($_POST['email']) ? $_POST['email']: Null;
+            $insert_data['password']        = isset($_POST['password']) ? md5($_POST['password']) : Null;
+            $result = $this->db->select('*')->from('mt_customers')->where($insert_data)->get()->row();
+            if (!empty($result)) {
+                $data['login_confirm']   = true;
+                $this->session->set_userdata('user_id', $result->user_id);
+                $this->session->set_userdata('name', $result->first_name);
+                $profile_img = $this->get_profile_image($result);
+                //$this->session->set_userdata('user_id', $result->user_id);
+            }else{
+                $data['error_msg']          = 'Incorrect email addresss and Password.';
+            }
+        }else
+        {
+                $data['error_msg']              = 'Some Internal error!';
+        }
+        echo json_encode($data); die;
+    }
+
+    /**
+    ** Logout 
+    **  
+    ** Paramaters []
+    **/
+    public function logout()
+    {
+        session_destroy();
+        redirect('home', 'refresh');
+    }
+
+    /*
+    ** Profile Image view for facebook and gmail users.
+    ** [parameters] [profile_image]
+    **
+    */
+    public function get_profile_image($signin_response)
+    {
+        //Default image path
+        $profile_img_link = base_url() . "assets/img/user.png";
+        //profile image check exist and set user data
+        if (empty($signin_response->profile_picture)){
+            if (!empty($signin_response->picture))
+            {
+                $profile_img_link = $signin_response->picture;  
+            }
+        }else {
+        $profile_img_path = __DIR__ . "/../../uploads/profiles/" . $signin_response->profile_picture;
+            if(file_exists($profile_img_path)) 
+            { 
+                $profile_img_link =  base_url(). "uploads/profiles/" . $signin_response->profile_picture.'?'.time();
+            } 
+        }
+        $this->session->set_userdata('profileimage', $profile_img_link);
+        return $profile_img_link;
+    }
 }
