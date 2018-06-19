@@ -1,8 +1,9 @@
 // carosoule slider
 $(document).ready(function(){
 	$('.t-under').click(function () {
-		$( "#gulp-sign-up" ).find(".close").trigger( "click" );
+		$( "body" ).find(".close").trigger( "click" );
 	});
+
 	$('.sign-up').click(function () {
 		$( "#gulp-login" ).find(".close").trigger( "click" );
 		$( "#gulp-sign-up").modal('show');

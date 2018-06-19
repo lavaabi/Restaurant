@@ -12,7 +12,6 @@ class Auth extends CI_Controller
         
         $this->load->library( 'facebook' );
         $this->load->library( 'Rest' );
-        $this->load->helper( 'url' );
         $this->load->model( 'Auth_model' );
         
         
@@ -73,16 +72,20 @@ class Auth extends CI_Controller
     {
         if(isset($_POST['signup'])){
             $insert_data = array();
+            $confirm_code                   = get_rand_code();
+            $confirmation_link              = base_url().'auth/confirmation/'.$confirm_code;
             $insert_data['first_name']      = isset($_POST['name']) ? $_POST['name'] : Null;
             $insert_data['email']           = isset($_POST['email']) ? $_POST['email']: Null;
             $insert_data['password']        = isset($_POST['password']) ? md5($_POST['password']) : Null;
+            $insert_data['confirm_code']    = $confirm_code;
             $result = $this->db->select('*')->from('mt_customers')->where('email', $_POST['email'])->get()->row();
             if (empty($result)) {
-                $this->Auth_model->add_customers($insert_data);
-                $message_mail   = 'Dear '.$insert_data['first_name'].',';
+                $message_mail   = 'Dear '.$insert_data['first_name'].', Your account created successfully click the link to continue new order'.$confirmation_link;
                 $email_sent     = _sendmail($insert_data['email'],$message_mail,'Gulp Registerd New User');
+                $this->Auth_model->add_customers($insert_data);
                 if($email_sent)
                 {
+                    $this->Auth_model->add_customers($insert_data);
                     $data['register_confirm']   = true;
                     $data['success_msg']        = 'Successfully register with send mail your access link!';
                 }else
@@ -113,10 +116,16 @@ class Auth extends CI_Controller
             $insert_data['password']        = isset($_POST['password']) ? md5($_POST['password']) : Null;
             $result = $this->db->select('*')->from('mt_customers')->where($insert_data)->get()->row();
             if (!empty($result)) {
-                $data['login_confirm']   = true;
-                $this->session->set_userdata('user_id', $result->user_id);
-                $this->session->set_userdata('name', $result->first_name);
-                $profile_img = $this->get_profile_image($result);
+                if($result->is_active=='N')
+                {
+                    $data['error_msg']          = 'Your accout is not activated, Please check your mail accees link to continue login.';
+                }else
+                {
+                    $data['login_confirm']   = true;
+                    $this->session->set_userdata('user_id', $result->user_id);
+                    $this->session->set_userdata('name', $result->first_name);
+                    $profile_img = $this->get_profile_image($result);
+                }
                 //$this->session->set_userdata('user_id', $result->user_id);
             }else{
                 $data['error_msg']          = 'Incorrect email addresss and Password.';
@@ -137,6 +146,94 @@ class Auth extends CI_Controller
     {
         session_destroy();
         redirect('home', 'refresh');
+    }
+    /*
+    ** Confirmation to login .
+    ** [parameters] [confirmation code]
+    **
+    */
+    public function confirmation($confirm_code)
+    {
+        if(!empty($confirm_code)){
+            $result = $this->db->select('*')->from('mt_customers')->where(array('confirm_code'=>$confirm_code))->get()->row();
+            if (!empty($result)) {
+                $this->db->update('mt_customers',array('is_active'=>'Y'),array('confirm_code'=>$confirm_code));
+                $data['login_confirm']   = true;
+                $this->session->set_userdata('user_id', $result->user_id);
+                $this->session->set_userdata('name', $result->first_name);
+                $profile_img = $this->get_profile_image($result);
+                //$this->session->set_userdata('user_id', $result->user_id);
+                redirect('home', 'refresh');
+            }else
+            {
+                $data['confirm_code_status'] = 'confirmation_link_not_match';
+            }
+
+        }else
+        {
+            $data['confirm_code_status'] = 'confirmation_link_empty_key';
+        }
+        $this->load->view('home',$data);
+    }
+
+    /*
+    ** Forgot password.
+    ** [parameters] [email address]
+    **
+    */
+    public function forgot_password()
+    {
+        if(isset($_POST['forgot'])){
+            $insert_data = array();
+            $confirm_code                   = get_rand_code();
+            $confirmation_link              = base_url().'auth/changepass/'.$confirm_code;
+            $insert_data['email']           = isset($_POST['email']) ? $_POST['email']: Null;
+            $result = $this->db->select('*')->from('mt_customers')->where($insert_data)->get()->row();
+            if (!empty($result)) {
+                $message_mail   = 'Dear '.$result->first_name.',  click the link to continue your password change '.$confirmation_link;
+                $email_sent     = _sendmail($insert_data['email'],$message_mail,'Gulp Forgot Password');
+                if($email_sent)
+                {
+                $this->db->update('mt_customers',array('pwd_confirm_code'=>$confirm_code),$insert_data);
+                $data['forgot']   = true;
+                $data['success_msg']        = 'Successfully your change password link is sent to your email address.';
+                }else
+                {
+                    $data['error_msg']          = "Some internal mail server issues will update link shortly.";
+                }
+            }else{
+                $data['error_msg']          = "Mismatch your email address.";
+            }
+        }else
+        {
+                $data['error_msg']              = 'Some Internal error!';
+        }
+        echo json_encode($data); die;
+    }
+
+    /*
+    ** Change password.
+    ** [parameters] [confirmation code]
+    **
+    */
+    public function changepass($confirm_code)
+    {
+        if(!empty($confirm_code)){
+            $result_N = $this->db->select('*')->from('mt_customers')->where(array('pwd_confirm_code'=>$confirm_code,'is_password'=>'N'))->get()->row();
+            $result_Y = $this->db->select('*')->from('mt_customers')->where(array('pwd_confirm_code'=>$confirm_code,'is_password'=>'Y'))->get()->row();
+            if (!empty($result_N)) {
+                $data['forgot_code_status'] = 'change_pass_access';
+            }
+            if(!empty($result_N))
+            {
+                $data['forgot_code_error'] = 'exist_link';
+            }
+
+        }else
+        {
+            $data['forgot_code_error'] = 'link_empty_key';
+        }
+        $this->load->view('home',$data);
     }
 
     /*
@@ -164,4 +261,6 @@ class Auth extends CI_Controller
         $this->session->set_userdata('profileimage', $profile_img_link);
         return $profile_img_link;
     }
+
+
 }

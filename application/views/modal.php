@@ -15,6 +15,18 @@
                          <button class="btn btn-fb"><i class="fa fa-facebook"></i> Sign in with Facebook</button>
                     </div>
                     <div class="or col-xs-12 text-center">
+                        <?php if(!empty($confirm_code_status)){?>
+                        <div class="error_info clear_info"><i class='fa fa-warning'></i>
+                        Your confirmation link is invalid, Please check your email or register again.
+                        </div>
+                        <?php } ?>
+
+                        <?php if(!empty($forgot_code_error)){?>
+                        <div class="error_info clear_info"><i class='fa fa-warning'></i>
+                        Your change password link is invalid, Please check your email or will try to again.
+                        </div>
+                        <?php } ?>
+
                          <p>OR</p>
                     </div>
                     <div class="col-xs-12 text-center">
@@ -62,7 +74,8 @@
                             <input type="hidden" name="signup" value="1">
                             <button type="submit" class="btn btn-gulp w-100">Sign up</button>
                             <p class="text-center already">Already a member? <span>
-                                <a href="#" data-toggle="modal" data-target="#gulp-login" class="text-red t-under">Sign-in</a></span></p>
+                                <a href="#" data-toggle="modal" data-target="#gulp-login" class="text-red t-under">Sign-in</a></span>
+                            </p>
                         </form>
                     </div>
                     <div class="col-xs-12">
@@ -106,7 +119,7 @@
                             <div class="form-group">
                                 <input type="password" name="password" class="form-control" id="login_password" placeholder="Password">
                             </div>
-                            <div class="error_info"></div>
+                            <div class="error_info error_info_signin clear_info"></div>
                             <button type="submit" class="btn btn-gulp w-100">Sign In</button>
                             <p class="text-center already">
                             <span>
@@ -149,15 +162,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title text-center" id="myModalLabel">Forgot Password Gulpp</h4>
+                <h4 class="modal-title text-center" id="myModalLabel">Forgot Password</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12">
-                        <form>
+                        <div class="success_info success_info_forgot clear_info"></div>
+                        <form name="forgot_password" id="forgot_password" onsubmit="return forgot_submit();" method="post">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" placeholder="Email Address">
+                                <input type="text" class="form-control" name="fr_email" id="fr_email" placeholder="Email Address">
                             </div>
+                            <div class="error_info error_info_forgot clear_info"></div>
                             <button type="submit" class="btn btn-gulp w-100">Submit</button>
                         </form>
                     </div>
@@ -167,3 +182,34 @@
     </div>
 </div>
 <!-- End forgot password modal box-->
+<!-- Change password modal box-->
+<div class="modal fade" id="gulp-confirm" tabindex="-1">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="myModalLabel">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="success_info success_info_change clear_info"></div>
+                        <form name="change_password" id="change_password" onsubmit="return change_submit();" method="post">
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="new_pass" id="new_pass" placeholder="new password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="confirm_pass" id="confirm_pass" placeholder="confirm  password">
+                            </div>
+                            <div class="error_info error_info_forgot clear_info"></div>
+                            <button type="submit" class="btn btn-gulp w-100">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End change password modal box-->

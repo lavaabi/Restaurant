@@ -121,6 +121,19 @@ $(document).on('click', '#updatefbdetails', function(e) {
 
 function validate(email_txt, password_txt, name_txt, type) {
   $(".error_info").empty();
+  // Forgot
+  if (type == "forgot") {
+    if (email_txt == "") {
+     $(".error_info").html('<i class="fa fa-warning"></i> Please enter your email address.');
+     return false
+    }
+    if (!isValidEmailAddress(email_txt)) {
+    $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid email address.");
+    return false
+    }
+    return true;
+  }
+  // Signup
   if (type == "signup") {
 
     if (name_txt == '') {
@@ -141,6 +154,7 @@ function validate(email_txt, password_txt, name_txt, type) {
       }
     }
   }
+  // Login and signup
   if (email_txt == "") {
      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your email address.');
      return false
@@ -201,7 +215,7 @@ function login_submit()
           if(data.login_confirm){
             window.location.href = baseurl+"restaurants";
           }else{
-            $('.error_info_signin').html(data.error_msg);
+            $('.error_info_signin').html("<i class='fa fa-warning'></i> " +data.error_msg);
           }
         }
     });
@@ -237,7 +251,71 @@ function signup_submit()
             $('#signup_password').val('');
             $('#signup_name').val('');
           }else{
-            $('.error_info_signup').html(data.error_msg);
+            $('.error_info_signup').html("<i class='fa fa-warning'></i> " +data.error_msg);
+          }
+        }
+    });
+  }
+  return false;
+}
+function forgot_submit()
+{
+  var email_txt     = $('#fr_email').val();
+  var password_txt  = '';
+  var name_txt      = '';
+  var sign_in = validate(email_txt,password_txt,name_txt,'forgot');
+  if(sign_in)
+  {
+    $('.overlay').show();
+    $.ajax({
+        type: "POST",
+        url: baseurl+"auth/forgot_password",
+        data: {
+            "email"     : email_txt,
+            'forgot'    :true
+        },
+        dataType:'JSON',
+        success: function(data) {
+          console.log(data);
+          $('.overlay').hide();
+          $('.clear_info').empty();
+          if(data.forgot){
+            $('.success_info_forgot').html(data.success_msg);
+          }else{
+            $('.error_info_forgot').html("<i class='fa fa-warning'></i> " +data.error_msg);
+          }
+        }
+    });
+  }
+  return false;
+}
+
+function change_submit()
+{
+  var new_pass      = $('#new_pass').val();
+  var confirm_pass  = $('#confirm_pass').val();
+  var password_txt  = '';
+  var name_txt      = '';
+  var sign_in = validate(email_txt,password_txt,name_txt,'changepass');
+  if(sign_in)
+  {
+    $('.overlay').show();
+    $.ajax({
+        type: "POST",
+        url: baseurl+"auth/forgot_password",
+        data: {
+            "email"     : email_txt,
+            'forgot'    :true
+        },
+        dataType:'JSON',
+        success: function(data) {
+          console.log(data);
+          $('.overlay').hide();
+          $('.clear_info').empty();
+          if(data.forgot){
+            $('.success_info_forgot').html(data.success_msg);
+          }else{
+            $('.error_info_forgot').html("<i class='fa fa-warning'></i> " +data.error_msg);
           }
         }
     });

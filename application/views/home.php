@@ -415,5 +415,14 @@ if(!empty($this->session->flashdata('success_message'))){
 <?php if(empty($this->session->userdata('user_id'))){ ?>
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/home.js?<?php echo time();?>"></script>
 <?php } ?>
+<?php if($forgot_code_status=='change_pass_access'){ ?>
+<script type="text/javascript">
+// popup for sign in or sign up
+$(window).on('load', function () {
+    $( "body" ).find(".close").trigger( "click" );
+    $('#gulp-confirm').modal('show');
+});
+</script>
+<?php } ?>
     <!-- End featured restaurant-->
 <?php $this->load->view('footer'); ?>
