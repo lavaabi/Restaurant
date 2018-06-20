@@ -48,7 +48,7 @@
    <!-- End Range -->
    <!-- category -->
    <h5 class="fs-title text-gray">CATEGORY</h5>
-   <ul class="category-list">
+   <ul class="category-list">   
        <li><a href="#" class="sort-active">Delivery <span class="pull-right">300</span></a></li>
        <li><a href="#">Dine out <span class="pull-right">340</span></a></li>
        <li><a href="#">Drinks &nbsp; Nightlife <span class="pull-right">180</span></a></li>
@@ -59,11 +59,18 @@
    <!-- category -->
    <h5 class="fs-title text-gray">CUISINE </h5>
    <ul class="category-list">
-       <li><a href="#" class="sort-active">North India <span class="pull-right">300</span></a></li>
+   <?php 
+   if(!empty($cuisine)){
+		foreach($cuisine as $row){ ?>
+			<li><a href="#" class="sort-active"><?php echo $row['cuisine_name']; ?> <span class="pull-right">300</span></a></li>
+		<?php }
+   }
+   ?>
+       <!--<li><a href="#" class="sort-active">North India <span class="pull-right">300</span></a></li>
        <li><a href="#">Chinese <span class="pull-right">340</span></a></li>
        <li><a href="#">South India <span class="pull-right">180</span></a></li>
        <li><a href="#">Fast food <span class="pull-right">167</span></a></li>
-       <li><a href="#">Pizza <span class="pull-right">16</span></a></li>
+       <li><a href="#">Pizza <span class="pull-right">16</span></a></li> -->
        <li><a href="#" class="all-cus">see all cuisines</a></li>
    </ul>
    <!-- End category -->
@@ -145,150 +152,47 @@
 <div class="listing-section">
     <h4>Most popular <span class="pull-right g-view">categories</span></h4>
     <ul class="food-listing">
-        <li>
+	<li>
+            <div class="food-blk">
+                <div class="fl-img">
+                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
+                </div>
+                <h4 class="food-title">Zaitoon
+                    <span class="pull-right rating">4.5</span>
+                </h4>
+                <p class="fl-tags">North India, Pure Veg</p>
+                <div class="fl-price-blk">
+                    <h5>
+                        <i class="inr">&#8377;</i>
+                        <b>250</b> for two
+                        <span class="pull-right fl-delivery">40 min</span>
+                    </h5>
+                </div>
+            </div>
+        </li>
+	<?php
+	if(!empty($result)){
+		foreach($result as $row){ ?>
+			<li>
           <div class="food-blk">
               <div class="fl-img">
-                  <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive"/>
+                  <img src="<?php echo ($row['logo'] == '') ?  base_url('assets/img/listing-slider/slider-1.png') : 'http://sanghish.com/restaurant/upload/'.$row['logo'] ?>" alt="Food-image" class="img-responsive"/>
               </div>
-              <h4 class="food-title">Zaitoon <span class="pull-right rating">4.5</span></h4>
-              <p class="fl-tags">North India, Pure Veg</p>
+              <h4 class="food-title"><?php echo $row['restaurant_name']; 
+			  if($row['mt_ratings']>0){
+			  ?> 
+			  <span class="pull-right rating"><?php echo number_format($row['mt_ratings'],1); ?></span>
+			  <?php } ?>
+			  </h4>
+              <p class="fl-tags"><?php echo $row['city'] ?></p>
               <div class="fl-price-blk">
-                <h5><i class="inr">&#8377;</i> <b>250</b> for two <span class="pull-right fl-delivery">40 min</span></h5>
+                <h5><b>Minimum Order : </b><?php echo ($row['mt_ratings']>0) ? '<i class="inr">&#8377;</i>'.number_format($row['minimum_order'],2) : 'Not Mentioned'; ?><!--<span class="pull-right fl-delivery">40 min</span>--></h5>
               </div>
           </div>
         </li>
-        <li>
-          <div class="food-blk">
-              <div class="fl-img">
-                  <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive"/>
-              </div>
-              <h4 class="food-title">Zaitoon <span class="pull-right rating">4.5</span></h4>
-              <p class="fl-tags">North India, Pure Veg</p>
-              <div class="fl-price-blk">
-                <h5><i class="inr">&#8377;</i> <b>250</b> for two <span class="pull-right fl-delivery">40 min</span></h5>
-              </div>
-          </div>
-        </li>
-        <li>
-          <div class="food-blk">
-              <div class="fl-img">
-                  <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive"/>
-              </div>
-              <h4 class="food-title">Zaitoon <span class="pull-right rating">4.5</span></h4>
-              <p class="fl-tags">North India, Pure Veg</p>
-              <div class="fl-price-blk">
-                <h5><i class="inr">&#8377;</i> <b>250</b> for two <span class="pull-right fl-delivery">40 min</span></h5>
-              </div>
-          </div>
-        </li>
-        <li>
-            <div class="food-blk">
-                <div class="fl-img">
-                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
-                </div>
-                <h4 class="food-title">Zaitoon
-                    <span class="pull-right rating">4.5</span>
-                </h4>
-                <p class="fl-tags">North India, Pure Veg</p>
-                <div class="fl-price-blk">
-                    <h5>
-                        <i class="inr">&#8377;</i>
-                        <b>250</b> for two
-                        <span class="pull-right fl-delivery">40 min</span>
-                    </h5>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="food-blk">
-                <div class="fl-img">
-                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
-                </div>
-                <h4 class="food-title">Zaitoon
-                    <span class="pull-right rating">4.5</span>
-                </h4>
-                <p class="fl-tags">North India, Pure Veg</p>
-                <div class="fl-price-blk">
-                    <h5>
-                        <i class="inr">&#8377;</i>
-                        <b>250</b> for two
-                        <span class="pull-right fl-delivery">40 min</span>
-                    </h5>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="food-blk">
-                <div class="fl-img">
-                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
-                </div>
-                <h4 class="food-title">Zaitoon
-                    <span class="pull-right rating">4.5</span>
-                </h4>
-                <p class="fl-tags">North India, Pure Veg</p>
-                <div class="fl-price-blk">
-                    <h5>
-                        <i class="inr">&#8377;</i>
-                        <b>250</b> for two
-                        <span class="pull-right fl-delivery">40 min</span>
-                    </h5>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="food-blk">
-                <div class="fl-img">
-                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
-                </div>
-                <h4 class="food-title">Zaitoon
-                    <span class="pull-right rating">4.5</span>
-                </h4>
-                <p class="fl-tags">North India, Pure Veg</p>
-                <div class="fl-price-blk">
-                    <h5>
-                        <i class="inr">&#8377;</i>
-                        <b>250</b> for two
-                        <span class="pull-right fl-delivery">40 min</span>
-                    </h5>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="food-blk">
-                <div class="fl-img">
-                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
-                </div>
-                <h4 class="food-title">Zaitoon
-                    <span class="pull-right rating">4.5</span>
-                </h4>
-                <p class="fl-tags">North India, Pure Veg</p>
-                <div class="fl-price-blk">
-                    <h5>
-                        <i class="inr">&#8377;</i>
-                        <b>250</b> for two
-                        <span class="pull-right fl-delivery">40 min</span>
-                    </h5>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="food-blk">
-                <div class="fl-img">
-                    <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
-                </div>
-                <h4 class="food-title">Zaitoon
-                    <span class="pull-right rating">4.5</span>
-                </h4>
-                <p class="fl-tags">North India, Pure Veg</p>
-                <div class="fl-price-blk">
-                    <h5>
-                        <i class="inr">&#8377;</i>
-                        <b>250</b> for two
-                        <span class="pull-right fl-delivery">40 min</span>
-                    </h5>
-                </div>
-            </div>
-        </li>
+		<?php }
+	}
+	?> 
     </ul>
 </div>
 <!-- End Filter & Listing Block-->

@@ -117,12 +117,4 @@
 
 <?php 
 $this->load->view('listing_filter');
-if(!empty($result)){
-	foreach($result as $row){
-		//print_r($row);
-		//echo $row['restaurant_name']."<br />";
-	}
-}
-
-
 $this->load->view('footer'); ?>
