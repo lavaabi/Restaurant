@@ -28,4 +28,15 @@ class Restaurants extends CI_Controller {
 		$this->load->view('restaurant_listing',$data);
 	}
 	
+	public function menus(){
+		$data = array();
+		if(!empty($_GET['restaurant_id'])){
+			$this->db->query("SELECT * FROM `mt_item` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
+		}else{
+			
+		}
+		
+		$this->load->view('restaurant_listing',$data);
+	}
+	
 }

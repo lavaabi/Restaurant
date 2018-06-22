@@ -175,7 +175,7 @@
 	<?php
 	if(!empty($result)){
 		foreach($result as $row){ ?>
-			<li>
+			<li><a href="<?php echo base_url('restaurants/menus').'?restaurant_id='.$row['merchant_id']; ?>">
           <div class="food-blk">
               <div class="fl-img">
                   <img src="<?php echo ($row['logo'] == '') ?  base_url('assets/img/listing-slider/slider-1.png') : 'http://sanghish.com/restaurant/upload/'.$row['logo'] ?>" alt="Food-image" class="img-responsive"/>
@@ -190,7 +190,7 @@
               <div class="fl-price-blk">
                 <h5><b>Minimum Order : </b><?php echo ($row['mt_ratings']>0) ? '<i class="inr">&#8377;</i>'.number_format($row['minimum_order'],2) : 'Not Mentioned'; ?><!--<span class="pull-right fl-delivery">40 min</span>--></h5>
               </div>
-          </div>
+          </div></a>
         </li>
 		<?php }
 	}
