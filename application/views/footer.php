@@ -96,4 +96,10 @@
 <script type="text/javascript">var logintype = "<?php echo ($this->session->userdata('oauth_id')!='')?"fblogin":"normallogin" ?>";</script>
 <script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/footer.js"></script>
+<script>
+function locate_me(){
+	var myloc = $("#my_location").val();
+	$("#search-food").val(myloc);
+}
+</script>
 </html>

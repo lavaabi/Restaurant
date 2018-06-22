@@ -2,7 +2,9 @@
 <div class="filter-section">
    <h4 class="fs-title">Filters<span class="clear pull-right"><a href="#" class="text-red">CLEAR ALL</a></span></h4>
    <ul class="sorting-list">
-       <li><span class="sorting">Adyar</span></li>
+	   <?php if(!empty($city)){ ?>
+		   <li><span class="sorting"><?php echo $city; ?></span></li>
+	   <?php } ?>
        <li><span class="sorting">Delivery</span></li>
        <li><span class="sorting">North India</span></li>
        <li><span class="sorting">Wifi</span></li>
@@ -152,7 +154,7 @@
 <div class="listing-section">
     <h4>Most popular <span class="pull-right g-view">categories</span></h4>
     <ul class="food-listing">
-	<li>
+	<!--<li>
             <div class="food-blk">
                 <div class="fl-img">
                     <img src="<?php echo base_url() ?>assets/img/listing-slider/slider-1.png" alt="Food-image" class="img-responsive" />
@@ -169,7 +171,7 @@
                     </h5>
                 </div>
             </div>
-        </li>
+        </li>-->
 	<?php
 	if(!empty($result)){
 		foreach($result as $row){ ?>

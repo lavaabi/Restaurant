@@ -15,7 +15,14 @@ class Restaurants extends CI_Controller {
 	public function index()
 	{
 		$data = array();
-		$data['result'] = $this->db->query("SELECT * FROM `mt_merchant` m left join (SELECT *, AVG(ratings) as mt_ratings FROM `mt_rating` group by merchant_id) as r on r.merchant_id = m.merchant_id")->result_array();
+		if(!empty($_POST['city'])){
+			$data['result'] = $this->db->query("SELECT * FROM `mt_merchant` m left join (SELECT *, AVG(ratings) as mt_ratings FROM `mt_rating` group by merchant_id) as r on r.merchant_id = m.merchant_id where city like ? or restaurant_name like ? or street like ?", array('%'.$_POST['city'].'%','%'.$_POST['city'].'%','%'.$_POST['city'].'%'))->result_array();
+			$data['city'] = $_POST['city'];
+		}else{
+			$data['result'] = $this->db->query("SELECT * FROM `mt_merchant` m left join (SELECT *, AVG(ratings) as mt_ratings FROM `mt_rating` group by merchant_id) as r on r.merchant_id = m.merchant_id")->result_array();
+			$data['city'] = '';
+		}
+		//echo $this->db->last_query();
 		$data['category'] = $this->db->query("SELECT * FROM `mt_category` GROUP BY category_name ")->result_array();
 		$data['cuisine'] = $this->db->query("SELECT * FROM `mt_cuisine` GROUP BY cuisine_name")->result_array();
 		$this->load->view('restaurant_listing',$data);
