@@ -13,28 +13,28 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="food-img">
-                                <img src="<?php echo base_url();?>assets/img/detail-view/food-deatils.png" alt="food-image" class="img-responsive"/>
+                                <img src="<?php echo ($restaurant_detail['logo'] == '') ?  base_url('assets/img/detail-view/food-deatils.png') : 'http://sanghish.com/restaurant/upload/'.$restaurant_detail['logo'] ?>" alt="food-image" class="img-responsive"/>
                             </div>
                         </div>
                         <div class="col-sm-8 food-details">
-                            <h3 class="fd-title">The Redbox</h3>
-                            <p>Anna Nagar West, Chennai</p>
-                            <h6 class="fd-ingrediants">chaat, North Indian, Chinese, Continental, Italian </h6>
+                            <h3 class="fd-title"><?php echo $restaurant_detail['restaurant_name']; ?></h3>
+                            <p><?php echo $restaurant_detail['street']; ?></p>
+                            <h6 class="fd-ingrediants"><?php echo $restaurant_detail['cuisine']; ?> </h6>
                             <ul>
                                 <li class="fd-rating">
                                     <h5>
-                                        <i class="fa fa-star"></i> 4.5</h5>
-                                    <p>5444 Ratings</p>
+                                        <i class="fa fa-star"></i> <?php echo number_format($restaurant_detail['mt_ratings'],1); ?></h5>
+                                    <p><?php echo $restaurant_detail['rating_count']; ?> Ratings</p>
                                 </li>
                                 <li class="fd-delivery">
-                                    <h5>32 mins</h5>
-                                    <p>Delivery Time</p>
+                                    <h5><?php echo ($restaurant_detail['mt_ratings']>0) ? '<i class="inr">&#8377;</i>'.number_format($restaurant_detail['minimum_order'],2) : 'Not Mentioned'; ?></h5>
+                                    <p>Minimum Order</p>
                                 </li>
-                                <li class="fd-delivery">
+                                <!--<li class="fd-delivery">
                                     <h5>
                                         <i class="fa fa-inr"></i> 250</h5>
                                     <p>Cost for two</p>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
