@@ -31,12 +31,13 @@ class Restaurants extends CI_Controller {
 	public function menus(){
 		$data = array();
 		if(!empty($_GET['restaurant_id'])){
-			$this->db->query("SELECT * FROM `mt_item` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
+			$data['menus'] = $this->db->query("SELECT * FROM `mt_item` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
+			$data['restaurant_detail'] = $this->db->query("SELECT * FROM `mt_merchant` m left join (SELECT *, AVG(ratings) as mt_ratings FROM `mt_rating` group by merchant_id) as r on r.merchant_id = m.merchant_id where m.merchant_id = ?", array($_GET['restaurant_id']))->row_array();
 		}else{
-			
+			redirect('restaurants');
 		}
 		
-		$this->load->view('restaurant_listing',$data);
+		$this->load->view('menu_detail',$data);
 	}
 	
 }

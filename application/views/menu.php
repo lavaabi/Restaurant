@@ -18,6 +18,32 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<?php if($this->router->fetch_class() == "Restaurants" && $this->router->fetch_method() == "menus" ) ?>
+			<div class="search-location">
+				<form>
+					<div class="col-sm-4 gulp-select-box">
+						<div class="form-group">
+							<select class="form-control">
+								<option>search restaurants</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-5 gulp-search-box">
+						<div class="form-group">
+							<input type="text" class="form-control" id="search-box" placeholder="Search for restaurants or cusines">
+						</div>
+					</div>
+					<div class="col-sm-3 gulp-search-btn">
+						<div class="form-group">
+							<button type="submit" class="btn btn-gulp">Search</button>
+						</div>
+					</div>
+				</form>
+			</div>
             <ul class="nav navbar-nav navbar-right sign-block">
                 <li class="gulp-login">
                     <a href="#" data-toggle="modal" data-target="#gulp-login">Login</a>
@@ -54,7 +80,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="search-location">
                 <form>
-                    <div class="col-sm-3 gulp-select-box">
+                    <div class="col-sm-4 gulp-select-box">
                         <div class="form-group">
                             <select class="form-control">
                                 <option>search restaurants</option>

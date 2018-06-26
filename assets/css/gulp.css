@@ -64,6 +64,9 @@ table {
 }
 /* End color*/
 /* helper class */
+.w100 {
+    width: 100%;
+}
 .t-under {
 	text-decoration: underline;
 }
@@ -214,7 +217,7 @@ a {
     width: 20%;
 }
 .search-location {
-    width: 60%;
+    width: 57%;
 	float: left;
 	padding: 15px 0;
 }
@@ -965,7 +968,10 @@ a {
 .listing-section {
     width: 75%;
     float: left;
-    padding: 30px;
+    padding: 30px 20px;
+}
+.listing-section > h4 {
+    padding: 0 25px 0 15px;
 }
 .food-listing {
     width: 100%;
@@ -978,7 +984,21 @@ a {
 .food-listing li {
     width: 32%;
     float: left;
-    margin: 0 15px 30px 0;
+    margin: 0 15px 15px 0;
+    padding: 15px 15px 0;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    border-radius: 3px;
+}
+.food-details-blk {
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+.food-listing li:hover {
+    transition: all 0.3s ease 0s;
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
 }
 .g-view {
     position: relative;
@@ -1010,25 +1030,375 @@ a {
 .fl-price-blk {
     width: 100%;
     float: left;
-    margin: 10px 0 0 0;
+    margin: 5px 0 10px 0;
 }
 .fl-img {
     width: 100%;
     height: 260px;
+    padding: 0;
+    position: relative;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
 }
 .fl-img img {
     width: 100%;
     height: 100%;
 }
-.food-blk a{
-	color: #000;
-	text-decoration : none;
+.gulp-range {
+    width: 100%;
+    float: left;
+    padding: 10px 25px 0 15px;
 }
-.food-blk a:hover{
-	color: #000;
-	text-decoration : none;
+.to {
+    width: 14%;
+}
+.quick-view {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0,0,0,0.1);
+    top: 0;
+    text-align: center;
+    visibility: hidden;
+}
+.quick-view > a {
+    background: #fff;
+    color: #000;
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    top: 105px;
+    text-decoration: none !important;
+    text-transform: uppercase;
+}
+.food-listing li:hover .quick-view {
+    visibility: visible;
+}
+.food-listing li:hover .fl-img {
+    -webkit-transform: scale(0.98);
+    -moz-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    -o-transform: scale(0.98);
+    transform: scale(0.98);
+    overflow: hidden;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
 }
 /* listing Right End */
 /* End listing section */
+/* Food details */
+.food-detail-blk {
+    background: #27282f;
+    width: 100%;
+    float: left;
+    padding: 25px 0;
+}
+.food-detail-blk .breadcrumb {
+    background: none;
+    margin: 0 0 15px 0;
+    padding: 0 0 0 0;
+}
+.food-detail-blk .breadcrumb li a {
+    color: #79797a;
+}
+.food-detail-blk .breadcrumb li a:hover,.food-detail-blk .breadcrumb li a:focus {
+    color: #79797a;
+}
+.food-detail-blk .breadcrumb > li + li:before {
+    content:"\f105";
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 12px;
+}
+.food-details {
+    color: #fff;
+}
+.fd-title {
+    margin: 12px 0 5px 0;
+}
+.fd-ingrediants {
+    margin: 30px 0 15px 0;
+    font-weight: 400;
+}
+.food-details ul {
+    width: 100%;
+    float: left;
+}
+.food-details ul li {
+    display: inline-block;
+    margin: 0 50px 0 0;
+}
+.fd-rating .fa-star {
+    color: #c00927;
+    margin: 0 6px 0 0;
+}
+.food-details ul li h5 {
+    margin: 0 0 5px 0;
+}
+.food-details ul li p {
+    font-size: 12px;
+}
+.food-img {
+    height: 200px;
+    width: 100%;
+}
+.food-img img {
+    height: 100%;
+    width: 100%;
+}
+.food-tab-details {
+    width: 100%;
+    background: #fff;
+    padding: 30px 0;
+    float: left;
+}
+.food-tab-details .nav-tabs {
+    display: inline-block;
+}
+.food-tab-details .nav-tabs > li {
+    margin-bottom: 0;
+    padding-right: 40px;
+}
+.food-tab-details .nav-tabs > li.active > a, .food-tab-details .nav-tabs > li.active > a:hover, .food-tab-details .nav-tabs > li.active > a:focus {
+    color: #c00927;
+    border: none;
+    padding: 10px 0;
+    border-bottom: 4px solid #c00927;
+}
+.food-tab-details .nav-tabs > li > a {
+    padding: 10px 0;
+    color: #000;
+    border: none;
+    border-radius: 0;
+}
+.food-tab-details .nav > li > a:hover, .food-tab-details .nav > li > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+    color: #c00927;
+    border: none;
+}
+.ft-blocks {
+    padding: 14px 0;
+}
+.ft-blocks h5 {
+    text-transform: uppercase;
+}
+.ft-more a {
+    color: #c00927;
+}
+.ft-blocks p {
+    margin: 0;
+}
+.ph {
+    margin: 0px 0 0 0;
+}
+.ft-blocks ul li {
+    padding-left: 25px;
+    padding-bottom: 5px;
+    position: relative;
+}
+.ft-blocks ul li::before {
+    position: absolute;
+    content:"\f00c";
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 12px;
+    color: #c00927;
+    left: 0;
+}
+.top-offers li {
+    margin: 0 0 15px 0;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 0 0 15px 0;
+}
+.top-offers li:last-child {
+    border-bottom: none;
+}
+.off-details h4 {
+    margin: 0 0 5px 0;
+}
+.off-details p {
+    margin: 0 0 8px 0;
+}
+.off-yellow a {
+    background: #fff100;
+    color: #000;
+    padding: 6px 10px;
+    display: inline-block;
+    text-decoration: none;
+}
+.off-yellow a:hover,.off-yellow a:focus {
+    color: #000;
+    text-decoration: none;
+}
+.top-offers {
+    margin: 30px 0 15px 0;
+}
+.fd-menu-title {
+    display: inline-block;
+    color: #fff;
+    position: relative;
+}
+.fd-menu-title::before {
+    position: absolute;
+    height: 17px;
+    width: 31px;
+    content: "";
+    background: url("../img/detail-view/menu_floarl_left.png") no-repeat center center / 80%;
+    left: -40px;
+}
+.fd-menu-title::after {
+    position: absolute;
+    height: 17px;
+    width: 31px;
+    content: "";
+    background: url("../img/detail-view/menu_floarl_right.png") no-repeat center center / 80%;
+    right: -40px;
+}
+.fd-menu-list li {
+    width: 33.333%;
+    float: left;
+    margin: 0 0 15px 0;
+}
+.fd-menu-list li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 300;
+}
+.fd-menu-list li a:hover, .fd-menu-list li a:focus {
+    color: #fff;
+    text-decoration: none;
+}
+.fd-menu-list {
+    width: 100%;
+    float: left;
+    margin: 20px 0 15px 0;
+}
+.add-menu-img {
+    width: 100%;
+    height: 200px;
+}
+.add-menu-img img {
+    width: 100%;
+    height: 100%;
+}
+.amb-tag {
+    font-size: 12px;
+    color: #777;
+}
+.add-menu-blk h5 {
+    margin: 15px 0 5px 0;
+    text-transform: capitalize;
+}
+.add-menu-blk {
+    margin: 0 0 20px 0;
+}
+.amb-wrong {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: #777;
+    margin: 0 8px 0 0;
+}
+.amb-add span {
+    border: 1px solid #c00a27;
+    padding: 8px 30px;
+    color: #c00a27;
+    cursor: pointer;
+    display: inline-block;
+}
+.amb-price {
+    margin: 10px 0;
+}
+.amb-add {
+    float: right;
+}
+.add-count {
+    float: right;
+    border: 1px solid #c00a27;
+}
+.add-count .btn {
+    background: transparent;
+    outline: none;
+    color: #c00a27;
+    padding: 6px 8px;
+}
+.add-count .btn:hover, .add-count .btn:focus, .add-count .btn:active {
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+.amb-count {
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+    height: 25px;
+}
+.amb-menu-title {
+    color: #818181;
+    margin: 18px 0 20px;
+    text-transform: capitalize;
+}
+.no-order {
+    margin: 50px 0px 0 0;
+}
+.empty-txt {
+    margin: 10px 0 0 0;
+    color: #d2d2d2;
+}
+.order-tit {
+    position: relative;
+}
+.order-tit::before {
+    position: absolute;
+    content: "";
+    background: url("../img/dot.jpg") no-repeat center center;
+}
+.ord-count .add-count {
+    float: left;
+    border: 1px solid #c00a27;
+}
+.ord-multi {
+    display: inline-block;
+    margin: 9px 8px;
+    color: #8e8e8e;
+    font-size: 12px;
+}
+.ord-price {
+    float: right;
+    text-align: right;
+}
+.ord-tit span {
+    color: #8e8e8e;
+    font-size: 12px;
+    margin: 0 0 0 5px;
+}
+.order-list li {
+    display: block;
+    margin: 0 0 25px 0;
+}
+.order-list {
+    margin: 28px 0 0 0;
+}
+.sub-total {
+    border-top: 1px solid #ccc;
+    padding: 15px 0 0 0;
+}
+.sub-tot {
+    margin: 10px 0 0;
+}
+.ord-tax {
+    color: #777;
+    font-style: italic;
+    font-size: 11px;
+}
+
+
+/* End Food Details */
 
 /* end custom styles */

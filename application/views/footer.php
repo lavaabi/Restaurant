@@ -92,14 +92,36 @@
 <?php $this->load->view('modal'); ?>
 <!-- Js -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css?<?php echo time();?>"/>
-<script type="text/javascript">var baseurl = "<?php echo base_url(); ?>";</script>
-<script type="text/javascript">var logintype = "<?php echo ($this->session->userdata('oauth_id')!='')?"fblogin":"normallogin" ?>";</script>
 <script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/footer.js"></script>
-<script>
+
+<script type="text/javascript">
+
+var baseurl = "<?php echo base_url(); ?>";
+var logintype = "<?php echo ($this->session->userdata('oauth_id')!='')?"fblogin":"normallogin" ?>";
+
 function locate_me(){
 	var myloc = $("#my_location").val();
 	$("#search-food").val(myloc);
 }
+
+$(document).ready(function () {
+	
+	$('.carousel-control.left').click(function () {
+		$('#listing-slider').carousel('prev');
+	});
+
+	$('.carousel-control.right').click(function () {
+		$('#listing-slider').carousel('next');
+	});
+	
+	$('#ex2').slider({
+		formatter: function (value) {
+			return 'Current value: ' + value;
+		}
+	});
+	
+	$('.tooltip').tooltipster();
+});
 </script>
 </html>
