@@ -44,7 +44,7 @@ class Auth extends CI_Controller
             $this->session->set_userdata( 'role_id', (int) $fblogin_response->user_details->role_id );
             $this->session->set_userdata( 'logged_in', (bool) true );
             // Profile image set userdata
-            $this->get_profile_image($fblogin_response);
+            $this->Auth_model->get_profile_image($fblogin_response);
 
             $this->session->set_userdata( 'name', $fblogin_response->user_details->first_name );
             $this->session->set_userdata( 'email', $fblogin_response->user_details->email );
@@ -124,7 +124,7 @@ class Auth extends CI_Controller
                     $data['login_confirm']   = true;
                     $this->session->set_userdata('user_id', $result->user_id);
                     $this->session->set_userdata('name', $result->first_name);
-                    $profile_img = $this->get_profile_image($result);
+                    $profile_img = $this->Auth_model->get_profile_image($result);
                 }
                 //$this->session->set_userdata('user_id', $result->user_id);
             }else{
@@ -154,6 +154,7 @@ class Auth extends CI_Controller
     */
     public function confirmation($confirm_code)
     {
+        $data =array();
         if(!empty($confirm_code)){
             $result = $this->db->select('*')->from('mt_customers')->where(array('confirm_code'=>$confirm_code))->get()->row();
             if (!empty($result)) {
@@ -161,7 +162,7 @@ class Auth extends CI_Controller
                 $data['login_confirm']   = true;
                 $this->session->set_userdata('user_id', $result->user_id);
                 $this->session->set_userdata('name', $result->first_name);
-                $profile_img = $this->get_profile_image($result);
+                $profile_img = $this->Auth_model->get_profile_image($result);
                 //$this->session->set_userdata('user_id', $result->user_id);
                 redirect('home', 'refresh');
             }else
@@ -190,17 +191,23 @@ class Auth extends CI_Controller
             $insert_data['email']           = isset($_POST['email']) ? $_POST['email']: Null;
             $result = $this->db->select('*')->from('mt_customers')->where($insert_data)->get()->row();
             if (!empty($result)) {
-                $message_mail   = 'Dear '.$result->first_name.',  click the link to continue your password change '.$confirmation_link;
-                $email_sent     = _sendmail($insert_data['email'],$message_mail,'Gulp Forgot Password');
-                if($email_sent)
-                {
-                $this->db->update('mt_customers',array('pwd_confirm_code'=>$confirm_code),$insert_data);
-                $data['forgot']   = true;
-                $data['success_msg']        = 'Successfully your change password link is sent to your email address.';
+                if($result->is_active=='N'){
+                    $data['error_msg']          = "Your accout is not activated.";
                 }else
                 {
-                    $data['error_msg']          = "Some internal mail server issues will update link shortly.";
+                    $message_mail   = 'Dear '.$result->first_name.',  click the link to continue your password change '.$confirmation_link;
+                    $email_sent     = _sendmail($insert_data['email'],$message_mail,'Gulp Forgot Password');
+                    if($email_sent)
+                    {
+                    $this->db->update('mt_customers',array('pwd_confirm_code'=>$confirm_code),$insert_data);
+                    $data['forgot']   = true;
+                    $data['success_msg']        = 'Successfully your change password link is sent to your email address.';
+                    }else
+                    {
+                        $data['error_msg']          = "Some internal mail server issues will update link shortly.";
+                    }   
                 }
+                
             }else{
                 $data['error_msg']          = "Mismatch your email address.";
             }
@@ -218,6 +225,7 @@ class Auth extends CI_Controller
     */
     public function changepass($confirm_code)
     {
+        $data =array();
         if(!empty($confirm_code)){
             $result_N = $this->db->select('*')->from('mt_customers')->where(array('pwd_confirm_code'=>$confirm_code,'is_password'=>'N'))->get()->row();
             $result_Y = $this->db->select('*')->from('mt_customers')->where(array('pwd_confirm_code'=>$confirm_code,'is_password'=>'Y'))->get()->row();
@@ -237,30 +245,95 @@ class Auth extends CI_Controller
     }
 
     /*
-    ** Profile Image view for facebook and gmail users.
-    ** [parameters] [profile_image]
+    ** Change password.
+    ** [parameters] [confirmation code]
     **
     */
-    public function get_profile_image($signin_response)
+    public function change_password()
     {
-        //Default image path
-        $profile_img_link = base_url() . "assets/img/user.png";
-        //profile image check exist and set user data
-        if (empty($signin_response->profile_picture)){
-            if (!empty($signin_response->picture))
+        $confirm_code = (isset($_POST['confirm_code'])) ? $_POST['confirm_code'] : '';
+        if(!empty($confirm_code)){
+            $result = $this->db->select('*')->from('mt_customers')->where(array('pwd_confirm_code'=>$confirm_code,'is_password'=>'N'))->get()->row();
+            if (!empty($result)) {
+                $this->db->update('mt_customers',array('password'=>md5($_POST['password']),'is_password'=>'Y'),array('pwd_confirm_code'=>$confirm_code));
+                $data['changepass']     = true;
+                $data['success_msg']    = 'Successfully changed your password!';
+            }else
             {
-                $profile_img_link = $signin_response->picture;  
+                $data['error_msg']      = 'Your forgot password link is invalid.';
             }
-        }else {
-        $profile_img_path = __DIR__ . "/../../uploads/profiles/" . $signin_response->profile_picture;
-            if(file_exists($profile_img_path)) 
-            { 
-                $profile_img_link =  base_url(). "uploads/profiles/" . $signin_response->profile_picture.'?'.time();
-            } 
+
+        }else
+        {
+            $data['error_msg']      = 'Your forgot password link is invalid.';
         }
-        $this->session->set_userdata('profileimage', $profile_img_link);
-        return $profile_img_link;
+        echo json_encode($data); die;
     }
 
+    /*
+    ** Myaccount page updated.
+    ** [parameters] [confirmation code]
+    **
+    */
+    public function myaccount()
+    {
+        valid_session_user();
+        $data = array();
+        $data['profile'] = $this->Auth_model->get_profile();
+        $this->load->view('myaccount',$data);
+    }
+    /*
+    ** Update profile page updated.
+    ** [parameters] [confirmation code]
+    **
+    */
+    function update_user_profile()
+    {   valid_session_user();
+        if(!empty($_POST['profile_update']))
+        {
+           $this->db->update('mt_customers',array(
+            'first_name'=> $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'mobile'    => $_POST['mobile']
+            ),array('user_id'=>$this->session->userdata('user_id')));
+            $data['update_pf']     = true;
+            $data['success_msg']    = 'Successfully updated your details.'; 
+        }else
+        {
+            $data['error_msg']    = 'Update some invalid values.'; 
+        }
+        echo json_encode($data); die;
 
+    }
+
+    /*
+    ** Update profile passwod page updated.
+    ** [parameters] [confirmation code]
+    **
+    */
+    function update_user_profile_pass()
+    {   valid_session_user();
+        if(!empty($_POST['profile_update_pass']))
+        {
+            $profile = $this->Auth_model->get_profile();
+            if($profile->password != md5($_POST['old_pass']))
+            {
+                $data['error_msg']    = 'Your old password is not match.';
+
+            }else
+            {
+                $this->db->update('mt_customers',array(
+                'password'=> md5($_POST['confirm_pass'])
+                ),array('user_id'=>$this->session->userdata('user_id')));
+                $data['update_pass']     = true;
+                $data['success_msg']    = 'Successfully updated your password.';
+
+            } 
+        }else
+        {
+            $data['error_msg']    = 'Some invalid values.'; 
+        }
+        echo json_encode($data); die;
+
+    }
 }

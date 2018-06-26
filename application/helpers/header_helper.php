@@ -25,6 +25,7 @@
 			}
 		}
 	}
+
    // Method: POST, PUT, GET etc
 // Data: array("param" => "value") ==> index.php?param=value
 

@@ -286,6 +286,38 @@ class Auth_model extends CI_Model
         $this->db->insert('mt_customers',$data);
         return true;
     }
+
+    // Get profile details 
+
+    public function get_profile()
+    {
+        return $data = $this->db->select('*')->from('mt_customers')->where(array('user_id'=>$this->session->userdata('user_id')))->get()->row();
+    }
     
+    /*
+    ** Profile Image view for facebook and gmail users.
+    ** [parameters] [profile_image]
+    **
+    */
+    public function get_profile_image($signin_response)
+    {
+        //Default image path
+        $profile_img_link = base_url() . "assets/img/user.png";
+        //profile image check exist and set user data
+        if (empty($signin_response->profile_picture)){
+            if (!empty($signin_response->picture))
+            {
+                $profile_img_link = $signin_response->picture;  
+            }
+        }else {
+        $profile_img_path = __DIR__ . "/../../uploads/profiles/" . $signin_response->profile_picture;
+            if(file_exists($profile_img_path)) 
+            { 
+                $profile_img_link =  base_url(). "uploads/profiles/" . $signin_response->profile_picture.'?'.time();
+            } 
+        }
+        $this->session->set_userdata('profileimage', $profile_img_link);
+        return $profile_img_link;
+    }
     
 }
