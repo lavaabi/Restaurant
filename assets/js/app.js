@@ -121,30 +121,6 @@ $(document).on('click', '#updatefbdetails', function(e) {
 
 function validate(email_txt, password_txt, name_txt, type) {
   $(".error_info").empty();
-  //change pass
-  if(type == "changepass")
-  {
-    if (name_txt == "") {
-     $(".error_info").html('<i class="fa fa-warning"></i> Please enter your new password.');
-     return false
-    }
-    if (password_txt == "") {
-     $(".error_info").html('<i class="fa fa-warning"></i> Please enter your confirm password.');
-     return false
-    }
-
-    if (password_txt != name_txt) {
-     $(".error_info").html('<i class="fa fa-warning"></i> Password is mismatch.');
-     return false
-    }
-
-    if(isvalidpassword(password_txt)===false || isvalidpassword(name_txt)===false) {
-    $(".error_info").html("<i class='fa fa-warning'></i> Password must be minimum 6 characters and must contains at least one uppercase, one lowercase, one number and one special character.");
-    return false  
-    }
-    return true;
-
-  }
   // Forgot
   if (type == "forgot") {
     if (email_txt == "") {
@@ -217,7 +193,6 @@ function facebook_page_connect(url) {
 
 function login_submit()
 {
-  $('.clear_info').empty();
   var email_txt     = $('#login_email').val();
   var password_txt  = $('#login_password').val();
   var sign_in = validate(email_txt,password_txt,name_txt='','signin');
@@ -249,7 +224,6 @@ function login_submit()
 }
 function signup_submit()
 {
-  $('.clear_info').empty();
   var email_txt     = $('#signup_email').val();
   var password_txt  = $('#signup_password').val();
   var name_txt      = $('#signup_name').val();
@@ -286,7 +260,6 @@ function signup_submit()
 }
 function forgot_submit()
 {
-  $('.clear_info').empty();
   var email_txt     = $('#fr_email').val();
   var password_txt  = '';
   var name_txt      = '';
@@ -319,131 +292,34 @@ function forgot_submit()
 
 function change_submit()
 {
-  $('.clear_info').empty();
-  var name_txt      = $('#new_pass').val();
-  var password_txt  = $('#confirm_pass').val();
-  var confirm_code  = $('#confirm_code_change').val();
-  var email_txt     = '';
+  var new_pass      = $('#new_pass').val();
+  var confirm_pass  = $('#confirm_pass').val();
+  var password_txt  = '';
+  var name_txt      = '';
   var sign_in = validate(email_txt,password_txt,name_txt,'changepass');
   if(sign_in)
   {
     $('.overlay').show();
     $.ajax({
         type: "POST",
-        url: baseurl+"auth/change_password",
+        url: baseurl+"auth/forgot_password",
         data: {
-            "password"      : password_txt,
-            'confirm_code'  : confirm_code,
-            'changepass'    :true
+            "email"     : email_txt,
+            'forgot'    :true
         },
         dataType:'JSON',
         success: function(data) {
           console.log(data);
           $('.overlay').hide();
-          
-          if(data.changepass){
-            $('.success_info_change').html(data.success_msg);
-            $('#new_pass').val('');
-            $('#confirm_pass').val('');
+          $('.clear_info').empty();
+          if(data.forgot){
+            $('.success_info_forgot').html(data.success_msg);
           }else{
-            $('.error_info_change').html("<i class='fa fa-warning'></i> " +data.error_msg);
+            $('.error_info_forgot').html("<i class='fa fa-warning'></i> " +data.error_msg);
           }
         }
     });
   }
   return false;
 }
-
-function profile_user_update()
-{
-  $('.clear_info').empty();
-  var data = $('#profile_update').serialize();
-  var name_txt = $('#first_name').val();
-  if (name_txt == '') {
-      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your Name.');
-      return false
-    }else if(name_txt.length < 3) {
-      $(".error_info").html("<i class='fa fa-warning'></i> Name should be minimum of 3 characters.");
-      return false  
-    }else if(name_txt.length > 40)
-    {
-      $(".error_info").html("<i class='fa fa-warning'></i> Name should not exceed 40 characters.");
-      return false
-    } else {
-      if(name_txt.match("^[a-zA-Z']{3,16}")) {
-      } else {
-      $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid Name.");
-      return false
-      }
-    }
-
-    $('.overlay').show();
-    $.ajax({
-        type: "POST",
-        url: baseurl+"auth/update_user_profile",
-        data: data,
-        dataType:'JSON',
-        success: function(data) {
-          console.log(data);
-          $('.overlay').hide();
-          
-          if(data.update_pf){
-            $('.success_info_update_pf').html(data.success_msg);
-            $('#new_pass').val('');
-            $('#confirm_pass').val('');
-          }else{
-            $('.error_info_update_pf').html("<i class='fa fa-warning'></i> " +data.error_msg);
-          }
-        }
-    });
-    return false;
-}
-
-function profile_user_update_pass()
-{
-  var data = $('#profile_update_pass').serialize();
-    $('.clear_info').empty();
-    var name_txt      = $('#new_pass').val();
-    var password_txt  = $('#confirm_pass').val();
-    var email_txt     = '';
-    var sign_in = validate(email_txt,password_txt,name_txt,'changepass');
-    var old_pass =$('#old_pass').val();
-    if (old_pass == '') {
-      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your old password.');
-      return false
-    }
-    if(sign_in)
-    {
-    $('.overlay').show();
-    $.ajax({
-        type: "POST",
-        url: baseurl+"auth/update_user_profile_pass",
-        data: data,
-        dataType:'JSON',
-        success: function(data) {
-          console.log(data);
-          $('.overlay').hide();
-          
-          if(data.update_pass){
-            $('.success_info_update_pass').html(data.success_msg);
-            $('#old_pass').val('');
-            $('#new_pass').val('');
-            $('#confirm_pass').val('');
-          }else{
-            $('.error_info_update_pass').html("<i class='fa fa-warning'></i> " +data.error_msg);
-          }
-        }
-    });
-  }
-    return false;
-}
-
-$(document).on('keyup','input[name="mobile"]',function(e)
-  {
-  if (/\D/g.test(this.value))
-  {
-    // Filter non-digits from input value.
-    this.value = this.value.replace(/\D/g, '');
-  }
-});
 
