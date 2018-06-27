@@ -203,7 +203,8 @@
                             <div class="form-group">
                                 <input type="password" class="form-control" name="confirm_pass" id="confirm_pass" placeholder="confirm  password">
                             </div>
-                            <div class="error_info error_info_forgot clear_info"></div>
+                            <input type="hidden" name="confirm_code_change" id="confirm_code_change" value="<?php echo $this->uri->segment(3)?>">
+                            <div class="error_info error_info_change clear_info"></div>
                             <button type="submit" class="btn btn-gulp w-100">Submit</button>
                         </form>
                     </div>
@@ -213,3 +214,84 @@
     </div>
 </div>
 <!-- End change password modal box-->
+<!-- Profile image upload modal box -->
+<div id="profile_pic_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h3>Change Profile Picture</h3>
+            </div>
+            <div class="modal-body">
+                <form id="cropimage" method="post" enctype="multipart/form-data" action="<?php echo base_url()?>imgupload/changeProfilePic">
+                    <strong>Upload Image:</strong> <br><br>
+                    <input type="file" name="profile-pic" id="profile-pic" />
+                    <input type="hidden" name="hdn-profile-id" id="hdn-profile-id" value="<?php echo (!empty($this->session->userdata('user_id')) ? $this->session->userdata('user_id') : '0'); ?>" />
+                    <input type="hidden" name="hdn-x1-axis" id="hdn-x1-axis" value="" />
+                    <input type="hidden" name="hdn-y1-axis" id="hdn-y1-axis" value="" />
+                    <input type="hidden" name="hdn-x2-axis" value="" id="hdn-x2-axis" />
+                    <input type="hidden" name="hdn-y2-axis" value="" id="hdn-y2-axis" />
+                    <input type="hidden" name="hdn-thumb-width" id="hdn-thumb-width" value="" />
+                    <input type="hidden" name="hdn-thumb-height" id="hdn-thumb-height" value="" />
+                    <input type="hidden" name="action" value="" id="action" />
+                    <input type="hidden" name="image_name" value="" id="image_name" />
+                    
+                    <div id='preview-profile-pic'></div>
+                <div id="thumbs" style="padding:5px; width:600p"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="save_crop" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Profile image upload modal box -->
+<!-- Profile address modal box -->
+<div id="profile_address_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h3>Add New Delivery Address</h3>
+            </div>
+            <div class="modal-body">
+             <div class="success_info success_info_update_address clear_info"></div>
+            <form name="profile_update_address" id="profile_update_address" method="post" onsubmit="return profile_user_update_address();">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">First Name</label>
+                  <input type="text" class="form-control" name="first_name_addr"  id="first_name_addr" value="<?php echo (isset($profile_address->first_name)) ? $profile_address->first_name : ''; ?>" placeholder="Enter First Name">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Last Name</label>
+                  <input type="text" class="form-control" name="last_name" value="<?php echo (isset($profile_address->last_name)) ? $profile_address->last_name : ''; ?>"   id="last_name" placeholder="Enter Last Name">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="inputEmail4">Address</label>
+                  <textarea class="form-control" rows="3" name="address" id="address"><?php echo (isset($profile_address->address)) ? $profile_address->address : ''; ?></textarea>
+                  
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Land Mark</label>
+                  <input type="text" class="form-control" name="land_mark" id="land_mark" value="<?php echo (isset($profile_address->location_name)) ? $profile_address->location_name : ''; ?>" placeholder="Enter land_mark">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Mobile Number</label>
+                  <input type="text" maxlength="10" class="form-control" name="mobile" value="<?php echo (isset($profile_address->mobile)) ? $profile_address->mobile : ''; ?>"  id="mobile" placeholder="Enter Mobile Number">
+                </div>
+                <input type="hidden" name="profile_status_address" value="1">
+              </div>
+              <div class="error_info error_info_update_pf clear_info"></div>
+              <button type="submit" class="btn btn-primary">Add Address</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Profile address modal box -->

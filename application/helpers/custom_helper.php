@@ -198,5 +198,28 @@ if ( ! function_exists('get_rand_code'))
 	}
 }
 
+/**
+ * Session Logged
+ *
+ * Returns true if user logged in otherwise redirect to login
+ *
+ * @access	public
+ * @param	null
+ * @return	true | false
+ */
+
+	if (!function_exists('valid_session_user'))
+	{
+		function valid_session_user()
+		{
+			$CI = & get_instance();
+			$session_user = $CI->session->userdata('user_id');
+			if(empty($session_user))
+			{
+				redirect('home', 'refresh');
+			}
+		}
+	}
+
 
 
