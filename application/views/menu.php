@@ -105,7 +105,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right head-account-block">
                 <li class="gulp-account">
-                    <a href="#"><span><img src="<?php echo $this->session->userdata('profileimage'); ?>" alt="user-image"></span><?php echo $this->session->userdata('name'); ?></a>
+                    <a href="#"><span><img src="<?php echo $this->session->userdata('profileimage'); ?>" alt="user-image" id="user_image"></span><?php echo $this->session->userdata('name'); ?></a>
                 </li>
                 <li class="cart-bag">
                     <a href="#">&nbsp;<span class="count">3</span></a>
