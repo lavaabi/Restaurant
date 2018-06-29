@@ -31,12 +31,29 @@ class Restaurants extends CI_Controller {
 	public function menus(){
 		$data = array();
 		if(!empty($_GET['restaurant_id'])){
+			
 			$data['menus'] = $this->db->query("SELECT * FROM `mt_item` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
-			$data['restaurant_detail'] = $this->db->query("SELECT * FROM `mt_merchant` m left join (SELECT *, AVG(ratings) as mt_ratings,count(ratings) as rating_count FROM `mt_rating` group by merchant_id) as r on r.merchant_id = m.merchant_id where m.merchant_id = ?", array($_GET['restaurant_id']))->row_array();
+			
+			$data['restaurant_detail'] = $this->db->query("SELECT * FROM `mt_merchant` m left join (SELECT *, AVG(rating) as mt_ratings,count(rating) as rating_count FROM `mt_review` group by merchant_id) as r on r.merchant_id = m.merchant_id where m.merchant_id = ?", array($_GET['restaurant_id']))->row_array();
+			
 			$data['restaurant_options'] = $this->db->query("SELECT * FROM `mt_option` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
-			$data['restaurant_reviews'] = $this->db->query("SELECT * FROM `mt_review` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
-			$data['restaurant_images'] = $this->db->query("SELECT * FROM `mt_review` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
+			
+			$data['restaurant_reviews'] = $this->db->query("SELECT m.*,c.* FROM `mt_review` m LEFT JOIN mt_customers c ON c.id=m.client_id where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
+			
+			$data['offers'] = $this->db->query("SELECT * FROM `mt_offers` m where m.merchant_id = ?", array($_GET['restaurant_id']))->result_array();
+			
+			$data['per_rating_count'] = $this->db->query("SELECT r.*,count(rating) as rating_count FROM `mt_review` r where r.merchant_id = ? group by r.rating", array($_GET['restaurant_id']))->result_array();
+			
+			$data['category'] = $this->db->query("SELECT cat_id,category_name FROM `mt_category` m")->result_array();
+			
 			//print_r($data['restaurant_options']);exit;
+			if(!empty($data['category'])){
+				foreach($data['category'] as $cat){
+					$c[$cat['cat_id']] = $cat['category_name'];
+				}
+			}
+			$data['category'] = $c;
+			
 		}else{
 			redirect('restaurants');
 		}

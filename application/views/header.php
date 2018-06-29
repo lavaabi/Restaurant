@@ -16,6 +16,8 @@
 	<!-- Font awesome link -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/sweetalert.css"/>
+	<!-- Fancy Box -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.fancybox.css" type="text/css" />
 	<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 	<!-- bootstrap js -->
 	<script type="text/javascript">var fb_app_id = "<?php echo $this->config->item('facebook_app_id'); ?>";</script>

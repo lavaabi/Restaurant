@@ -94,7 +94,16 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css?<?php echo time();?>"/>
 <script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/footer.js"></script>
-
+<!-- Js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript"></script> 
+<!-- bootstrap js -->
+<script src="<?php echo base_url();?>assets/js/bootstrap.js" type="text/javascript"></script>
+<!-- Range slider-->
+<script src="<?php echo base_url();?>assets/js/bootstrap-slider.js" type="text/javascript"></script>
+<!-- large tooltip js-->
+<script src="<?php echo base_url();?>assets/js/tooltipster.bundle.js" type="text/javascript"></script>
+<!-- Fancy Box -->
+<script src="<?php echo base_url();?>assets/js/jquery.fancybox.js" type="text/javascript"></script>
 <script type="text/javascript">
 
 var baseurl = "<?php echo base_url(); ?>";
@@ -122,6 +131,13 @@ $(document).ready(function () {
 	});
 	
 	$('.tooltip').tooltipster();
+	$('[data-fancybox="images"]').fancybox({
+		buttons: [
+		 'share',
+		 'thumbs',
+		 'close'
+		]
+	});
 });
 </script>
 </html>

@@ -45,7 +45,12 @@ table {
 
 /************************************** custom style starts *********************************************/
 /* custom margin */
-
+.mr-5 {
+    margin-right: 5px; 
+}
+.mt-20 {
+    margin-top: 20px;
+}
 /* custom margin ends */
 /* custom padding */
 
@@ -62,8 +67,22 @@ table {
 .text-gray {
     color: #6d6d6d;
 }
+.text-white {
+    color: #fff;
+}
 /* End color*/
+/* border */
+.bb-no {
+    border: none !important;
+}
+.bb{
+    border-bottom: 1px solid #ccc;
+}
 /* helper class */
+/* bg */
+.bg-d-red {background: #c00927 !important;}
+.bg-red {background: #f42a2a !important;}
+.bg-yellow {background: #eba900 !important;}
 .w100 {
     width: 100%;
 }
@@ -217,7 +236,7 @@ a {
     width: 20%;
 }
 .search-location {
-    width: 57%;
+    width: 60%;
 	float: left;
 	padding: 15px 0;
 }
@@ -1397,8 +1416,93 @@ a {
     font-style: italic;
     font-size: 11px;
 }
-
-
+.ad-rei {
+    font-size: 14px;
+    line-height: 27px;
+}
+.rv-value {
+    width: 16.66%;
+    float: left;
+    text-align: right;
+    color: #999;
+    font-size: 12px;
+}
+.rv-star {
+    width: 10.33%;
+    float: left;
+    font-size: 12px;
+}
+.rv-progress {
+    width: 73%;
+    float: left;
+}
+.r-v-blk {
+    float: left;
+    width: 100%;
+}
+.r-v-blk .progress {
+    height: 6px;
+    margin: 6px 0;
+}
+.r-v-blk li {
+    display: block;
+    overflow: hidden;
+    margin: 0 0 6px 0;
+}
+.review-box {
+    margin: 20px 0 20px 0;
+}
+.rv-user-img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: #ddd;
+}
+.rating-bg {
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 0 6px 0 0;
+}
+.rv-days {
+    color: #999;
+    font-size: 13px;
+}
+.rv-d-star {
+    width: 100%;
+    float: left;
+    margin: 5px 0 18px;
+}
+.rv-des-blk p {
+    margin: 0 0 15px 0;
+}
+.rv-d-img {
+    width: 100%;
+    float: left;
+    margin: 0 0 15px 0;
+}
+.rv-d-img li {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin: 0 15px 0 0;
+}
+.rv-d-img li img {
+    width: 100%;
+    height: 100%;
+}
+.rv-des-blk {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #ccc;
+}
+.f-p-modal img {
+    width: 100%;
+    height: 100%;
+}
+.f-p-modal {
+    width: 100%;
+    height: 150px;
+}
 /* End Food Details */
 
 /* end custom styles */

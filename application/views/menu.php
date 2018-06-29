@@ -19,7 +19,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<?php if($this->router->fetch_class() == "Restaurants" && $this->router->fetch_method() == "menus" ) ?>
-			<div class="search-location">
+			<div class="search-location" style="width:57%">
 				<form>
 					<div class="col-sm-4 gulp-select-box">
 						<div class="form-group">
