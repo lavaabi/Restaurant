@@ -19,11 +19,11 @@ function get_client_ip() {
         return $ipaddress;
     }
  $PublicIP = get_client_ip(); 
- $json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
- $json  =  json_decode($json ,true);
- $country =  $json['country_name'];
- $region= $json['region_name'];
- $city = $json['city'];
+ //$json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
+ $json  =  '';//json_decode($json ,true);
+ $country =  '';//$json['country_name'];
+ $region= '';//$json['region_name'];
+ $city = '';//$json['city'];
  
 ?>
 

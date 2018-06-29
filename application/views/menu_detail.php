@@ -27,7 +27,7 @@
                                     <p><?php echo $restaurant_detail['rating_count']; ?> Ratings</p>
                                 </li>
                                 <li class="fd-delivery">
-                                    <h5><?php echo ($restaurant_detail['mt_ratings']>0) ? '<i class="inr">&#8377;</i>'.number_format($restaurant_detail['minimum_order'],2) : 'Not Mentioned'; ?></h5>
+                                    <h5><?php echo ($restaurant_detail['minimum_order']>0) ? '<i class="inr">&#8377;</i>'.number_format($restaurant_detail['minimum_order'],2) : 'Not Mentioned'; ?></h5>
                                     <p>Minimum Order</p>
                                 </li>
                                 <!--<li class="fd-delivery">
@@ -77,10 +77,10 @@
                             <a href="#menu1" aria-controls="menu1" role="tab" data-toggle="tab">Menu1</a>
                         </li>
                         <li role="presentation">
-                            <a href="#review" aria-controls="review" role="tab" data-toggle="tab">Review <span>(530)</span></a>
+                            <a href="#review" aria-controls="review" role="tab" data-toggle="tab">Review <span>(<?php echo count($restaurant_reviews); ?>)</span></a>
                         </li>
                         <li role="presentation">
-                            <a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos <span>(30)</span></a>
+                            <a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos <span><?php echo count($restaurant_images); ?></span></a>
                         </li>
                     </ul>
                     
@@ -95,22 +95,30 @@
                                             <div class="col-sm-6">
                                                 <div class="ft-blocks">
                                                     <h5>Address</h5>
-                                                    <p>4th Ave, Shanthi colony, Anna Nagar,
-                                                        <br/> chennai</p>
+                                                    <p><?php echo $restaurant_detail['street']; ?></p>
                                                 </div>
                                                 <div class="ft-blocks">
                                                     <h5>Opening hours</h5>
                                                     <p>Today:
-                                                        <span>12PM to 11PM</span>
+                                                        <span>
+														<?php if(!empty($restaurant_options)){
+															echo $today = strtolower(date("l"));
+															foreach($restaurant_options as $r => $option){
+																if($option['option_name'] == "stores_open_starts"){
+																	//$find_today = decode($option['option_value']);
+																	//print_r($find_today);
+																	//echo $start_time_am = array_search($today,$find_today);
+																}
+															}
+														}  ?></span>
                                                     </p>
-                                                    <span class="ft-more">
+                                                    <!--<span class="ft-more">
                                                         <a href="#">More</a>
-                                                    </span>
+                                                    </span>-->
                                                 </div>
                                                 <div class="ft-blocks">
                                                     <h5>Cusines</h5>
-                                                    <p>Continental, Burger, America,
-                                                        <br/> Beverages, Fast Food, Salad</p>
+                                                    <p><?php echo $restaurant_detail['cuisine']; ?></p>
                                                 </div>
                                                 <div class="ft-blocks ft-more-info">
                                                     <h5>More info</h5>
@@ -126,14 +134,12 @@
                                             <div class="col-sm-6">
                                                 <div class="ft-blocks">
                                                     <h5>Phone number</h5>
-                                                    <h3 class="ph">044 - 48587777</h3>
+                                                    <h3 class="ph"><?php echo $restaurant_detail['restaurant_phone']; ?></h3>
                                                 </div>
                                                 <div class="ft-blocks">
-                                                    <h5>Average cost</h5>
+                                                    <h5>Minimum Order</h5>
                                                     <p>
-                                                        <span class="ft-price">
-                                                            <i class="fa fa-inr"></i> 250</span> for two people (approx.)</p>
-                                                    <span class="tax">Exclusive of applicable taxes &amp; charges if any</span>
+                                                       <?php echo ($restaurant_detail['minimum_order']>0) ? '<i class="inr">&#8377;</i>'.number_format($restaurant_detail['minimum_order'],2) : 'Not Mentioned'; ?></p>                       
                                                 </div>
                                             </div>
                                         </div>

@@ -188,11 +188,13 @@
 			  </h4>
               <p class="fl-tags"><?php echo $row['city'] ?></p>
               <div class="fl-price-blk">
-                <h5><b>Minimum Order : </b><?php echo ($row['mt_ratings']>0) ? '<i class="inr">&#8377;</i>'.number_format($row['minimum_order'],2) : 'Not Mentioned'; ?><!--<span class="pull-right fl-delivery">40 min</span>--></h5>
+                <h5><b>Minimum Order : </b><?php echo ($row['minimum_order']>0) ? '<i class="inr">&#8377;</i>'.number_format($row['minimum_order'],2) : 'Not Mentioned'; ?><!--<span class="pull-right fl-delivery">40 min</span>--></h5>
               </div>
           </div></a>
         </li>
 		<?php }
+	}else{
+		echo "No Restaurants found for your Location!!";
 	}
 	?> 
     </ul>
