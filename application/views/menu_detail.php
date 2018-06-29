@@ -4,8 +4,8 @@
         <div class="container-fluid">
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Library</a></li>
-                <li class="active">Data</li>
+                <li><a href="#">Restarant</a></li>
+                <li class="active">Menu</li>
             </ol>
             <div class="row">
                 <!-- First section -->
@@ -19,7 +19,18 @@
                         <div class="col-sm-8 food-details">
                             <h3 class="fd-title"><?php echo $restaurant_detail['restaurant_name']; ?></h3>
                             <p><?php echo $restaurant_detail['street']; ?></p>
-                            <h6 class="fd-ingrediants"><?php echo $restaurant_detail['cuisine']; ?> </h6>
+                            <h6 class="fd-ingrediants"><?php
+							$cuisine_arr = array();							
+							if(!empty($cuisine)){
+								foreach($cuisine as $cui){
+									$cuisine_arr[$cui['cuisine_id']] = $cui['cuisine_name'];
+								}
+							}
+							$res = json_decode($restaurant_detail['cuisine'],true);
+							if(!empty($res)){
+								foreach($res as $e => $r){
+								echo ($e>=1)?', '.$cuisine_arr[$r]:$cuisine_arr[$r];
+							} } ?> </h6>
                             <ul>
                                 <li class="fd-rating">
                                     <h5>
@@ -139,7 +150,10 @@ if($m < 9){
                                                 </div>
                                                 <div class="ft-blocks">
                                                     <h5>Cusines</h5>
-                                                    <p><?php echo $restaurant_detail['cuisine']; ?></p>
+                                                    <p><?php if(!empty($res)){
+															foreach($res as $e => $r){
+															echo ($e>=1)?', '.$cuisine_arr[$r]:$cuisine_arr[$r];
+														} } ?></p>
                                                 </div>
                                                 <div class="ft-blocks ft-more-info">
                                                     <h5>More info</h5>
