@@ -56,11 +56,107 @@ class Restaurants extends CI_Controller {
 			}
 			$data['category'] = $c;
 			
+			if(!empty($_SESSION['session_id'])){
+				$data['cart_view'] = $this->cart_details($_SESSION['session_id']);
+			}else{
+				$data['cart_view'] = '';
+			}
+			
 		}else{
 			redirect('restaurants');
 		}
 		
 		$this->load->view('menu_detail',$data);
+	}
+	
+	public function add_to_cart(){
+		
+		if(empty($_SESSION['session_id'])){
+			$_SESSION['session_id'] = session_id();
+		}
+		if(isset($_POST)){
+			
+			$item_session_id = substr(str_shuffle(str_repeat($x='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(6/strlen($x)) )),1,6);
+			
+			$insert_data = array('item_id' => $_POST['item_id'], 'quantity' => $_POST['quantity'], 'session_id' => $_SESSION['session_id'], 'item_session_id' => $item_session_id);
+			$insert_id = $this->Home_Model->cart_insert($insert_data);
+			$cart_view = $this->cart_details($_SESSION['session_id']);
+			$result = array('status' => 'success', 'cart_details' => $cart_view);
+			
+		}else{
+			$result = array('status' => 'failure', 'msg' => 'Post values are empty');
+		}
+		print_r($result);exit;
+		
+		echo json_encode($res);
+	}
+	
+	public function cart_details($session_id){
+		$cart_items = $this->db->query("SELECT c.item_id,c.session_id,c.quantity,c.item_session_id,i.item_name,i.price,g.gst_percentage as gst FROM `mt_shopping_cart` c LEFT JOIN mt_item i ON i.item_id = c.item_id LEFT JOIN mt_gst g ON g.merchant_id = i.merchant_id WHERE session_id = ?",array($session_id))->result_array();
+			$cart_view = '';
+			$total = 0;
+			if(!empty($cart_items)){
+				
+				$cart_view .= '<ul class="order-list">';
+				foreach($cart_items as $item){
+					$cart_view .= '<li>';
+						$cart_view .= '<div class="order-blk">';
+							$cart_view .= '<h5 class="ord-tit">'.$item['item_name'].'</h5>';
+							$cart_view .= '<div class="row">';
+								$cart_view .= '<div class="col-xs-8 ord-count">';
+									$cart_view .= '<div class="add-count">';
+										 $cart_view .= '<button class="btn"><i class="fa fa-plus"></i></button>';
+										 $cart_view .= '<span class="amb-count">4</span>';
+										 $cart_view .= '<button class="btn"><i class="fa fa-minus"></i></button>';
+									 $cart_view .= '</div>';
+									 $price = json_decode($item['price'],true);
+									 $total = $total + $price[0];
+									 $cart_view .= '<span class="ord-multi">'.$item['quantity'].' x <i class="fa fa-inr"></i> '.$price[0].'</span>';
+								$cart_view .= '</div>';
+								$cart_view .= '<div class="col-xs-4 ord-price">';
+									$cart_view .= '<h5><i class="fa fa-inr"></i> '.($item['quantity']*$price[0]).'</h5></h5>';
+								$cart_view .= '</div>';
+							$cart_view .= '</div>';
+						$cart_view .= '</div>';
+					$cart_view .= '</li>';
+				}
+					
+					$cart_view .= '<li class="gst">';
+						$cart_view .= '<div class="order-blk">';
+							$cart_view .= '<div class="row">';
+								$cart_view .= '<div class="col-xs-6 text-left">';
+									$cart_view .= '<h5>GST';
+									if(!empty($cart_items[0]['gst'])){
+										$cart_view .= '('.$cart_items[0]['gst'].'%)';
+										$total = (($cart_items[0]['gst']*$total)/100) + $total;
+									}
+									$cart_view .= '</h5>';
+								$cart_view .= '</div>';
+								$cart_view .= '<div class="col-xs-6 text-right">';
+									$cart_view .= '<h5><i class="fa fa-inr"></i> '.(($cart_items[0]['gst']*$total/100)).'</h5></h5>';
+								$cart_view .= '</div>';
+							$cart_view .= '</div>';
+						$cart_view .= '</div>';
+					$cart_view .= '</li>';
+					
+					$cart_view .= '<li class="sub-total">';
+						$cart_view .= '<div class="order-blk">';
+							$cart_view .= '<div class="row">';
+								$cart_view .= '<div class="col-xs-6 text-left">';
+									$cart_view .= '<h5 class="sub-tot">Sub Total</h5>';
+									$cart_view .= '<p class="ord-tax">(Plus Taxes)</p>';
+								$cart_view .= '</div>';
+								$cart_view .= '<div class="col-xs-6 text-right">';
+									$cart_view .= '<h4><i class="fa fa-inr"></i> '.$total.'</h4>';
+								$cart_view .= '</div>';
+							$cart_view .= '</div>';
+						$cart_view .= '</div>';
+					$cart_view .= '</li>';
+					$cart_view .= '</ul>';
+					$cart_view .= '<button class="btn btn-gulp place-od w100">Place order</button>';
+			
+			}
+			return $cart_view;
 	}
 	
 }

@@ -95,7 +95,7 @@
 <script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/footer.js"></script>
 <!-- Js -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript"></script> 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
 <!-- bootstrap js -->
 <script src="<?php echo base_url();?>assets/js/bootstrap.js" type="text/javascript"></script>
 <!-- Range slider-->
@@ -104,7 +104,7 @@
 <script src="<?php echo base_url();?>assets/js/tooltipster.bundle.js" type="text/javascript"></script>
 <!-- Fancy Box -->
 <script src="<?php echo base_url();?>assets/js/jquery.fancybox.js" type="text/javascript"></script>
-<script type="text/javascript">
+<script>
 
 var baseurl = "<?php echo base_url(); ?>";
 var logintype = "<?php echo ($this->session->userdata('oauth_id')!='')?"fblogin":"normallogin" ?>";
@@ -115,6 +115,38 @@ function locate_me(){
 }
 
 $(document).ready(function () {
+	
+
+    $(".increase_quantity").on("click", function() {
+		  var actual = $(this).closest('.add-count').find('input[name="quantity"]').val();
+		  if (actual >= 0) {
+			actual = parseFloat(actual) +1;
+		  } 
+		  $(this).closest('.add-count').find('input[name="quantity"]').val(actual);		
+	});
+	$(".decrease_quantity").on("click", function() {
+		  var actual = $(this).closest('.add-count').find('input[name="quantity"]').val();
+		  if (actual >= 0) {
+			actual = parseFloat(actual) -1;
+		  } 
+		  $(this).closest('.add-count').find('input[name="quantity"]').val(actual);		
+	});
+	
+	$(".add_to_cart").on("click", function() {
+		var item_id = $(this).closest('.item_details').find('input[name="item_id"]').val();	
+		var quantity = $(this).closest('.item_details').find('input[name="quantity"]').val();	
+		//alert(item_id +'-'+ quantity);
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url('restaurants/add_to_cart');?>",
+			data: "item_id="+item_id+"&quantity="+quantity,
+			dataType: 'json',
+			success: function (response) {
+			   $(".display_cart").html(response.cart_details);
+			   $(".display_cart").show();
+			}
+		});
+	});
 	
 	$('.carousel-control.left').click(function () {
 		$('#listing-slider').carousel('prev');

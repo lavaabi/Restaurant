@@ -188,6 +188,11 @@ class Home_Model extends CI_Model
         $this->db->select('a.*,t.title,u.first_name,u.email,p.title as name')->from('answers a')->join('tests t','t.id=a.test_id')->join('users u','u.id = a.user_id')->join('page_contents p','p.id=t.category');
         return $this->db->get();
     }
+	
+	public function cart_insert($data){
+        $this->db->insert('mt_shopping_cart',$data);
+        return $this->db->insert_id();
+    }
 
 
 }

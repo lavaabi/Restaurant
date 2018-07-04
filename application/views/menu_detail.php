@@ -227,6 +227,8 @@ if($m < 9){
                                                  <div class="add-menu-img">
                                                      <img src="<?php echo ($menu['photo'] == '') ?  base_url('assets/img/listing-slider/slider-1.png') : 'http://sanghish.com/restaurant/upload/'.$menu['photo']; ?>" alt="foot-image">
                                                  </div>
+												 <div class="row">
+												 <div class="col-xs-8">
                                                  <h5><?php echo $menu['item_name']; ?></h5>
                                                  <p class="amb-tag">
 												 <?php 
@@ -238,23 +240,34 @@ if($m < 9){
 												 }
 												 ?>
 												 </p>
-                                                 <div class="row">
-                                                     <div class="col-xs-6 amb-price">
-													 <?php 
+												 </div>
+												 <div class="col-xs-4" style="margin:20px 0 0 0;">
+												 <?php 
 													 $price = json_decode($menu['price'],true); 
 													 if(!empty($menu['discount'])){ ?>
                                                          <span class="amb-wrong"><i class="fa fa-inr"></i> <?php echo $menu['discount']+$price[0];  ?></span>
-													 <?php } ?>
+												<?php } ?>
+												</div>
+												</div>
+                                                 <div class="row item_details">
+                                                     <div class="col-xs-4 amb-price">
+													 
                                                          <span class="amb-right"><i class="fa fa-inr"></i> 
 														 <?php 
 														 echo $price[0]; ?>
 														 </span>
-                                                     </div>
-                                                     <div class="col-xs-6 add-remove-blk">
-                                                         <div class="add-count" style="display: none;">
-                                                            <i class="fa fa-plus"></i><span class="count">4</span><i class="fa fa-minus"></i>
+														 <input type="hidden" name="item_id" value="<?php echo $menu['item_id']; ?>"/>
+                                                     </div>													 
+													 <div class="col-xs-5 add-remove-blk">
+                                                         <div class="add-count">
+                                                             <button class="btn increase_quantity"><i class="fa fa-plus"></i></button>
+															 <input type="text" name="quantity" class="amb-count" value="0">
+                                                             <!--<span class="amb-count">0</span>-->
+                                                             <button class="btn decrease_quantity"><i class="fa fa-minus"></i></button>
                                                          </div>
-                                                         <div class="amb-add">
+                                                     </div>
+                                                     <div class="col-xs-3 add-remove-blk">
+                                                         <div class="amb-add add_to_cart">
                                                             <span>Add</span>
                                                          </div>
                                                      </div>
@@ -268,63 +281,19 @@ if($m < 9){
                               <!--second section -->
                                 <div class="col-md-offset-1 col-md-3">
                                     <h4>Your Order</h4>
-                                    <?php 
-									//$_SESSION['cart'] = 'test';
-									if(!empty($_SESSION['cart'])){ ?>
-										<ul class="order-list">
-                                        <li>
-                                            <div class="order-blk">
-                                                <h5 class="ord-tit">cicken Momos <span>(3nos)</span></h5>
-                                                <div class="row">
-                                                    <div class="col-xs-8 ord-count">
-                                                        <div class="add-count">
-                                                             <button class="btn"><i class="fa fa-plus"></i></button>
-                                                             <span class="amb-count">4</span>
-                                                             <button class="btn"><i class="fa fa-minus"></i></button>
-                                                         </div>
-                                                         <span class="ord-multi">1 x <i class="fa fa-inr"></i> 250</span>
-                                                    </div>
-                                                    <div class="col-xs-4 ord-price">
-                                                        <h5><i class="fa fa-inr"></i> 250</h5></h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-										<li class="gst">
-                                            <div class="order-blk">
-                                                <div class="row">
-                                                    <div class="col-xs-6 text-left">
-                                                        <h5>GST</h5>
-                                                    </div>
-                                                    <div class="col-xs-6 text-right">
-                                                        <h5><i class="fa fa-inr"></i> 250</h5></h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="sub-total">
-                                            <div class="order-blk">
-                                                <div class="row">
-                                                    <div class="col-xs-6 text-left">
-                                                        <h5 class="sub-tot">Sub Total</h5>
-                                                        <p class="ord-tax">(Plus Taxes)</p>
-                                                    </div>
-                                                    <div class="col-xs-6 text-right">
-                                                        <h4><i class="fa fa-inr"></i> 250</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-										</ul>
-										<button class="btn btn-gulp place-od w100">Place order</button>
-									<?php }else{ ?>
+									<div class="display_cart">   
+									<?php if(!empty($cart_view)){
+										echo $cart_view;
+									} ?>										
+									</div>
+									<?php //}else{ ?>
 									<!-- No order -->									
-                                    <div class="text-center no-order">
+                                    <div class="text-center no-order" style="display:<?php echo empty($_SESSION['cart']) ? 'block' : 'none'; ?>">
                                         <img src="<?php echo base_url();?>assets/img/no-order.png" alt="no-order">
                                         <p class="empty-txt">Your cart is empty</p>
                                     </div>
                                     <!-- No order -->
-									<?php } ?>
+									<?php //} ?>
                                 </div>
                               <!--End second section -->
                             </div>
