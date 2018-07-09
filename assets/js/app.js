@@ -122,6 +122,29 @@ $(document).on('click', '#updatefbdetails', function(e) {
 function validate(email_txt, password_txt, name_txt, type) {
   $(".error_info").empty();
   //change pass
+  if(type == "changepass_update")
+  {
+    if (name_txt == "") {
+     $(".error_info_pass").html('<i class="fa fa-warning"></i> Please enter your new password.');
+     return false
+    }
+    if (password_txt == "") {
+     $(".error_info_pass").html('<i class="fa fa-warning"></i> Please enter your confirm password.');
+     return false
+    }
+
+    if (password_txt != name_txt) {
+     $(".error_info_pass").html('<i class="fa fa-warning"></i> Password is mismatch.');
+     return false
+    }
+
+    if(isvalidpassword(password_txt)===false || isvalidpassword(name_txt)===false) {
+    $(".error_info_pass").html("<i class='fa fa-warning'></i> Password must be minimum 6 characters and must contains at least one uppercase, one lowercase, one number and one special character.");
+    return false  
+    }
+    return true;
+
+  }
   if(type == "changepass")
   {
     if (name_txt == "") {
@@ -178,6 +201,8 @@ function validate(email_txt, password_txt, name_txt, type) {
       }
     }
   }
+  // Signup
+  if (type == "signin") {
   // Login and signup
   if (email_txt == "") {
      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your email address.');
@@ -191,6 +216,23 @@ function validate(email_txt, password_txt, name_txt, type) {
     $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid email address.");
     return false
   }
+  return true;
+  }
+
+  // Login and signup
+  if (email_txt == "") {
+     $(".error_info").html('<i class="fa fa-warning"></i> Please enter your email address.');
+     return false
+  }else if (password_txt == "" ) {
+      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your password.');
+      return false
+  }
+
+  if (!isValidEmailAddress(email_txt)) {
+    $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid email address.");
+    return false
+  }
+
   if(isvalidpassword(password_txt)===false) {
     $(".error_info").html("<i class='fa fa-warning'></i> Password must be minimum 6 characters and must contains at least one uppercase, one lowercase, one number and one special character.");
     return false  
@@ -406,10 +448,10 @@ function profile_user_update_pass()
     var name_txt      = $('#new_pass').val();
     var password_txt  = $('#confirm_pass').val();
     var email_txt     = '';
-    var sign_in = validate(email_txt,password_txt,name_txt,'changepass');
+    var sign_in = validate(email_txt,password_txt,name_txt,'changepass_update');
     var old_pass =$('#old_pass').val();
     if (old_pass == '') {
-      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your old password.');
+      $(".error_info_pass").html('<i class="fa fa-warning"></i> Please enter your old password.');
       return false
     }
     if(sign_in)
@@ -446,28 +488,28 @@ function profile_user_update_address()
     var address  = $('#address').val();
     var mobile   = $('#mobile').val();
     if (name_txt == '') {
-      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your Name.');
+      $(".error_info_update_address").html('<i class="fa fa-warning"></i> Please enter your Name.');
       return false
     }else if(name_txt.length < 3) {
-      $(".error_info").html("<i class='fa fa-warning'></i> Name should be minimum of 3 characters.");
+      $(".error_info_update_address").html("<i class='fa fa-warning'></i> Name should be minimum of 3 characters.");
       return false  
     }else if(name_txt.length > 40)
     {
-      $(".error_info").html("<i class='fa fa-warning'></i> Name should not exceed 40 characters.");
+      $(".error_info_update_address").html("<i class='fa fa-warning'></i> Name should not exceed 40 characters.");
       return false
     } else {
       if(name_txt.match("^[a-zA-Z']{3,16}")) {
       } else {
-      $(".error_info").html("<i class='fa fa-warning'></i> Please enter your valid Name.");
+      $(".error_info_update_address").html("<i class='fa fa-warning'></i> Please enter your valid Name.");
       return false
       }
     }
     if (address == '') {
-      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your details address here.');
+      $(".error_info_update_address").html('<i class="fa fa-warning"></i> Please enter your details address here.');
       return false
     }
     if (mobile == '') {
-      $(".error_info").html('<i class="fa fa-warning"></i> Please enter your mobile number.');
+      $(".error_info_update_address").html('<i class="fa fa-warning"></i> Please enter your mobile number.');
       return false
     }
     

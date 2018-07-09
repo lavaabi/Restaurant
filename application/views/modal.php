@@ -248,50 +248,58 @@
     </div>
 </div>
 <!-- End Profile image upload modal box -->
-<!-- Profile address modal box -->
-<div id="profile_address_modal" class="modal fade">
-    <div class="modal-dialog">
+
+<!-- Add address modal box -->
+<!-- Modal -->
+<div class="modal fade" id="profile_address_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h3>Add New Delivery Address</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="myModalLabel">Add New Delivery Address</h4>
+                <h4 class="modal-title text-center" id="myModalLabel" style="display: none;">Edit New Delivery Address</h4>
             </div>
             <div class="modal-body">
-             <div class="success_info success_info_update_address clear_info"></div>
-            <form name="profile_update_address" id="profile_update_address" method="post" onsubmit="return profile_user_update_address();">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">First Name</label>
-                  <input type="text" class="form-control" name="first_name_addr"  id="first_name_addr" value="<?php echo (isset($profile_address->first_name)) ? $profile_address->first_name : ''; ?>" placeholder="Enter First Name">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPassword4">Last Name</label>
-                  <input type="text" class="form-control" name="last_name" value="<?php echo (isset($profile_address->last_name)) ? $profile_address->last_name : ''; ?>"   id="last_name" placeholder="Enter Last Name">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="inputEmail4">Address</label>
-                  <textarea class="form-control" rows="3" name="address" id="address"><?php echo (isset($profile_address->address)) ? $profile_address->address : ''; ?></textarea>
-                  
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputPassword4">Land Mark</label>
-                  <input type="text" class="form-control" name="land_mark" id="land_mark" value="<?php echo (isset($profile_address->location_name)) ? $profile_address->location_name : ''; ?>" placeholder="Enter land_mark">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">Mobile Number</label>
-                  <input type="text" maxlength="10" class="form-control" name="mobile" value="<?php echo (isset($profile_address->mobile)) ? $profile_address->mobile : ''; ?>"  id="mobile" placeholder="Enter Mobile Number">
-                </div>
-                <input type="hidden" name="profile_status_address" value="1">
-              </div>
-              <div class="error_info error_info_update_pf clear_info"></div>
-              <button type="submit" class="btn btn-primary">Add Address</button>
-            </form>
+                <div class="success_info success_info_update_address clear_info"></div>
+                <form name="profile_update_address" id="profile_update_address" method="post" onsubmit="return profile_user_update_address();">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="exampleInputEmail1" class="cust-lab">First Name</label>
+                            <input type="text" class="form-control" name="first_name_addr"  id="first_name_addr" value="<?php echo (isset($profile_address->first_name)) ? $profile_address->first_name : ''; ?>" placeholder="Enter First Name">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="exampleInputPassword1" class="cust-lab">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" value="<?php echo (isset($profile_address->last_name)) ? $profile_address->last_name : ''; ?>"   id="last_name" placeholder="Enter Last Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label for="exampleInputPassword1" class="cust-lab">Address</label>
+                            <textarea class="form-control" name="address" id="address" rows="2" placeholder="Address"><?php echo (isset($profile_address->address)) ? $profile_address->address : ''; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="exampleInputEmail1" class="cust-lab">Landmark</label>
+                            <input type="text" class="form-control" name="land_mark" id="land_mark" value="<?php echo (isset($profile_address->location_name)) ? $profile_address->location_name : ''; ?>" placeholder="Enter land_mark">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="exampleInputPassword1" class="cust-lab">Phone Number</label>
+                            <input type="text" maxlength="10" class="form-control" name="mobile" value="<?php echo (isset($profile_address->mobile)) ? $profile_address->mobile : ''; ?>"  id="mobile" placeholder="Enter Mobile Number">
+                        </div>
+                    </div>
+                    <input type="hidden" name="profile_status_address" value="1">
+                    <div class="row mt-10">
+                        <div class="col-xs-12 text-right">
+                            <div class="error_info error_info_update_pf error_info_update_address clear_info"></div>
+                            <button type="submit" class="btn btn-gulp">Add Address</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<!-- End Profile address modal box -->
+<!-- Add address modal box -->

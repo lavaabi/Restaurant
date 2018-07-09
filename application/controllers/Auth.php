@@ -280,6 +280,8 @@ class Auth extends CI_Controller
         valid_session_user();
         $data = array();
         $data['profile'] = $this->Auth_model->get_profile();
+        $where = array('client_id'=>$this->session->userdata('user_id'))
+        $data['profile_address_sess'] = $this->Auth_model->_fetch('*','mt_address_book',$where,$order,$group,$join,$return_type);
         $this->load->view('myaccount',$data);
     }
     /*
@@ -344,9 +346,10 @@ class Auth extends CI_Controller
     */
     function update_user_profile_address()
     {   valid_session_user();
-        if(!empty($_POST['profile_update_address']))
+        if($_POST['profile_status_address']==1)
         {
-            $insert_data['first_name']              = isset($_POST['first_name']) ? $_POST['first_name']: Null;
+            $insert_data['client_id']               = ($this->session->userdata('user_id')) ? $this->session->userdata('user_id'): Null;   
+            $insert_data['first_name']              = isset($_POST['first_name_addr']) ? $_POST['first_name_addr']: Null;
             $insert_data['last_name']               = isset($_POST['last_name']) ? $_POST['last_name']: Null;
             $insert_data['address']                 = isset($_POST['address']) ? $_POST['address']: Null;
             $insert_data['land_mark']               = isset($_POST['land_mark']) ? $_POST['land_mark']: Null;

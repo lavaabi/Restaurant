@@ -92,8 +92,8 @@
 <?php $this->load->view('modal'); ?>
 <!-- Js -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css?<?php echo time();?>"/>
-<script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/footer.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/upload_js/imgareaselect.css">
+
 <!-- Js -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
 <!-- bootstrap js -->
@@ -104,6 +104,11 @@
 <script src="<?php echo base_url();?>assets/js/tooltipster.bundle.js" type="text/javascript"></script>
 <!-- Fancy Box -->
 <script src="<?php echo base_url();?>assets/js/jquery.fancybox.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/footer.js"></script>
+<script src="<?php echo base_url() ?>assets/js/upload_js/jquery.imgareaselect.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/js/upload_js/jquery.form.js"></script>
+<script src="<?php echo base_url() ?>assets/js/functions.js"></script>
 <script>
 
 var baseurl = "<?php echo base_url(); ?>";

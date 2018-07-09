@@ -1,4 +1,4 @@
-.error_info{display: block;color: red; text-align: center;}
+.error_info,.error_info_pass{display: block;color: red; text-align: center;}
 .success_info{display: block;color: #0ed80e; text-align: center;}
 .overlay {
 		background-image:url('../img/ajax-loader.gif');

@@ -321,15 +321,43 @@ class Auth_model extends CI_Model
     }
 
     /*
-    ** Data insert for facebook and gmail users.
-    ** [parameters] [profile_image]
+    ** Data insert
+    ** [parameters] []
     **
     */
     public function _insert($table,$data)
     {
-        $this->db->insert('mt_customer',$data);
-        $insert_id = $this->db->insert_id;
+        $this->db->insert($table,$data);
+        $insert_id = $this->db->insert_id();
         return $insert_id;
+    }
+    /*
+    ** Get data 
+    ** [parameters] []
+    **
+    */
+    public function _fetch($select,$table,$where,$order,$group,$join,$return_type)
+    {
+
+        $this->db->select($select);
+        $this->db->from($table);
+        if(is_array($where)){
+        $this->db->where($where);
+        }
+        $query = $this->db->get();
+        if($return_type=='object'){
+            $result = $query->result();
+        }
+
+        if($return_type=='array'){
+            $result = $query->result_array();
+        }
+
+        if($return_type=='single'){
+            $result = $query->row();
+        }
+        
+        return $result;
     }
     
 }

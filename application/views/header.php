@@ -25,4 +25,4 @@
 	<script type="text/javascript" src="<?php echo base_url();?>assets/js/app.js?<?php echo time();?>"></script>
 </head>
 <body>
-<?php $this->load->view('menu'); ?>
+<?php $this->load->view('menu'); check_valid_user_session(); ?>
